@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OB Hemorrhage CQI Analysis & Improvement Proposal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        
+        .tab-active {
+            background: #2563eb;
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2);
+        }
+        
+        .swiss-cheese-hole {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.4; }
+        }
+        
+        .expand-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+        }
+        
+        .expand-content.expanded {
+            max-height: 2000px;
+            padding-top: 1rem;
+        }
+        
+        .chevron-rotate {
+            transition: transform 0.3s ease;
+        }
+        
+        .chevron-rotate.rotated {
+            transform: rotate(90deg);
+        }
+        
+        .category-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-card.selected {
+            ring: 2px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Outline tree styles */
+        .tree-node {
+            position: relative;
+        }
+        
+        .tree-node::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 0;
+            height: 100%;
+            width: 1px;
+            background: #e2e8f0;
+        }
+        
+        .tree-node:last-child::before {
+            height: 14px;
+        }
+        
+        .tree-node::after {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 14px;
+            width: 20px;
+            height: 1px;
+            background: #e2e8f0;
+        }
+        
+        .tree-children {
+            margin-left: 24px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+        }
+        
+        .tree-children.collapsed {
+            max-height: 0;
+            opacity: 0;
+        }
+        
+        .tree-children.expanded {
+            max-height: 5000px;
+            opacity: 1;
+        }
+        
+        .tree-toggle {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .tree-toggle:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .evidence-link {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            background: #eff6ff;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+        
+        .evidence-link:hover {
+            background: #dbeafe;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 md:p-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <div class="flex items-start gap-4">
+                <div class="p-3 bg-red-100 rounded-xl">
+                    <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-1">Continuous Quality Improvement</p>
+                    <h1 class="text-2xl md:text-3xl font-bold text-slate-800">
+                        OB Hemorrhage Root-Cause Analysis & Improvement Proposal
+                    </h1>
+                    <p class="text-slate-500 mt-1">
+                        Swiss-Cheese & Fishbone Analysis with Policy-Ready Action Plan
+                    </p>
+                    <p class="text-slate-600 mt-3 text-sm">
+                        Aligned with ACOG Obstetric Hemorrhage Bundle, ASA Blood Management Guidelines, CMQCC Hemorrhage Toolkit, and SMFM PPH Algorithms
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evidence-Based Resources Panel -->
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
+            <h3 class="font-semibold text-blue-800 mb-2 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+                Evidence-Based Guidelines & Resources
+            </h3>
+            <div class="flex flex-wrap gap-3 text-sm">
+                <a href="https://www.acog.org/clinical/clinical-guidance/practice-bulletin/articles/2017/10/postpartum-hemorrhage" target="_blank" class="text-blue-700 hover:text-blue-900 hover:underline">ACOG Practice Bulletin #555: Postpartum Hemorrhage</a>
+                <span class="text-blue-300">|</span>
+                <a href="https://journals.lww.com/anesthesiology/fulltext/2015/02000/practice_guidelines_for_perioperative_blood.12.aspx" target="_blank" class="text-blue-700 hover:text-blue-900 hover:underline">ASA Practice Guidelines for Perioperative Blood Management</a>
+                <span class="text-blue-300">|</span>
+                <a href="https://www.cmqcc.org/resources-tool-kits/toolkits/ob-hemorrhage-toolkit" target="_blank" class="text-blue-700 hover:text-blue-900 hover:underline">CMQCC OB Hemorrhage Toolkit</a>
+                <span class="text-blue-300">|</span>
+                <a href="https://www.aabb.org/blood-biotherapies/blood/transfusion-medicine/patient-blood-management" target="_blank" class="text-blue-700 hover:text-blue-900 hover:underline">AABB Patient Blood Management</a>
+                <span class="text-blue-300">|</span>
+                <a href="https://www.smfm.org/publications/280-smfm-consult-series-49-prevention-and-management-of-obstetric-hemorrhage" target="_blank" class="text-blue-700 hover:text-blue-900 hover:underline">SMFM Consult #49: Obstetric Hemorrhage</a>
+                <span class="text-blue-300">|</span>
+                <a href="https://www.sciencedirect.com/science/article/abs/pii/S2468784720301653" target="_blank" class="text-blue-700 hover:text-blue-900 hover:underline">Best Practice: OB Hemorrhage Management</a>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="flex flex-wrap gap-2 mb-6">
+            <button onclick="switchTab('outline')" id="tab-outline" class="tab-btn tab-active flex items-center gap-2 px-4 py-3 rounded-xl font-medium transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                </svg>
+                <span class="hidden sm:inline">Outline</span>
+            </button>
+            <button onclick="switchTab('swiss')" id="tab-swiss" class="tab-btn bg-white text-slate-600 hover:bg-slate-50 flex items-center gap-2 px-4 py-3 rounded-xl font-medium transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                </svg>
+                <span class="hidden sm:inline">Swiss-Cheese Model</span>
+            </button>
+            <button onclick="switchTab('fishbone')" id="tab-fishbone" class="tab-btn bg-white text-slate-600 hover:bg-slate-50 flex items-center gap-2 px-4 py-3 rounded-xl font-medium transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+                <span class="hidden sm:inline">Fishbone Analysis</span>
+            </button>
+            <button onclick="switchTab('action')" id="tab-action" class="tab-btn bg-white text-slate-600 hover:bg-slate-50 flex items-center gap-2 px-4 py-3 rounded-xl font-medium transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="hidden sm:inline">Action Plan</span>
+            </button>
+            <button onclick="switchTab('metrics')" id="tab-metrics" class="tab-btn bg-white text-slate-600 hover:bg-slate-50 flex items-center gap-2 px-4 py-3 rounded-xl font-medium transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+                <span class="hidden sm:inline">Performance Metrics</span>
+            </button>
+        </div>
+
+        <!-- Outline Content -->
+        <div id="content-outline" class="tab-content">
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">Document Outline</h2>
+                        <p class="text-slate-500">Expandable overview of the CQI analysis structure</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="expandAllNodes()" class="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors">Expand All</button>
+                        <button onclick="collapseAllNodes()" class="px-3 py-1 text-sm bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors">Collapse All</button>
+                    </div>
+                </div>
+                <div id="outline-tree" class="mt-4">
+                    <!-- Tree will be rendered by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Swiss-Cheese Model Content -->
+        <div id="content-swiss" class="tab-content hidden">
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-slate-800 mb-2">Swiss-Cheese Layered Failure Model</h2>
+                <p class="text-slate-500 mb-6">Click on any layer to see details about the barrier failure</p>
+                
+                <div class="grid gap-3" id="swiss-cheese-layers">
+                    <!-- Layers will be inserted by JavaScript -->
+                </div>
+                
+                <div class="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-200">
+                    <p class="text-amber-800 text-sm">
+                        <strong>Key Insight:</strong> When all 10 layers failed simultaneously, hazards passed through every barrier, resulting in patient harm. Each layer represents an opportunity for intervention.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fishbone Analysis Content -->
+        <div id="content-fishbone" class="tab-content hidden">
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-slate-800 mb-2">Fishbone (Ishikawa) Root-Cause Categories</h2>
+                <p class="text-slate-500 mb-6">Explore the 7 contributing factor categories</p>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6" id="fishbone-categories">
+                    <!-- Categories will be inserted by JavaScript -->
+                </div>
+                
+                <div id="fishbone-detail" class="border rounded-xl overflow-hidden hidden fade-in">
+                    <!-- Detail will be inserted by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Plan Content -->
+        <div id="content-action" class="tab-content hidden">
+            <div class="space-y-4" id="action-sections">
+                <!-- Action sections will be inserted by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Performance Metrics Content -->
+        <div id="content-metrics" class="tab-content hidden">
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-slate-800 mb-2">QI Dashboard Metrics</h2>
+                <p class="text-slate-500 mb-6">Key performance indicators for hemorrhage response</p>
+                
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="metrics-grid">
+                    <!-- Metrics will be inserted by JavaScript -->
+                </div>
+
+                <div class="mt-8 p-6 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl text-white">
+                    <h3 class="text-lg font-bold mb-3">Bottom Line</h3>
+                    <p class="text-blue-100 mb-4">
+                        This event reflects a <strong class="text-white">classic Swiss-cheese hemorrhage failure</strong> with:
+                    </p>
+                    <ul class="grid sm:grid-cols-2 gap-2 text-sm">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Recognizable physiology
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Correctable coagulopathy
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Delayed protocolized response
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Structural staffing vulnerabilities
+                        </li>
+                    </ul>
+                    <div class="mt-4 pt-4 border-t border-blue-500">
+                        <p class="text-sm text-blue-100">
+                            The proposed action plan is <strong class="text-white">policy-ready</strong>, uses <strong class="text-white">existing national standards</strong>, and directly closes the causal pathways that led to harm.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Outline tree data structure
+        const outlineData = {
+            id: 'root',
+            title: 'OB Hemorrhage CQI Analysis & Improvement Proposal',
+            expanded: true,
+            children: [
+                {
+                    id: 'swiss',
+                    title: 'I. Swiss-Cheese Layered Failure Model',
+                    link: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1117770/',
+                    linkText: 'Reason J, BMJ 2000',
+                    expanded: true,
+                    children: [
+                        { id: 'swiss-1', title: '1. Clinical Recognition — PACU hemorrhage severity underestimated' },
+                        { id: 'swiss-2', title: '2. Laboratory Monitoring — PACU labs not reviewed by anesthesia' },
+                        { id: 'swiss-3', title: '3. Communication — Secure chat delays; messages not acknowledged' },
+                        { id: 'swiss-4', title: '4. Team Structure — Junior resident-heavy staffing' },
+                        { id: 'swiss-5', title: '5. Hemorrhage Protocol — No standardized OB hemorrhage trigger' },
+                        { id: 'swiss-6', title: '6. Backup Activation — No early backup call despite red cases' },
+                        { id: 'swiss-7', title: '7. Situational Awareness — Divergent understanding of severity' },
+                        { id: 'swiss-8', title: '8. Informatics — PACU labs invisible to OR team' },
+                        { id: 'swiss-9', title: '9. Resuscitation — Only RBC initially; FFP, cryo delayed' },
+                        { id: 'swiss-10', title: '10. Leadership — No single resuscitation coordinator' }
+                    ]
+                },
+                {
+                    id: 'fishbone',
+                    title: 'II. Fishbone (Ishikawa) Root-Cause Analysis',
+                    expanded: true,
+                    children: [
+                        {
+                            id: 'fish-people',
+                            title: 'A. People (Training / Experience)',
+                            expanded: true,
+                            children: [
+                                { id: 'fish-p1', title: 'Junior anesthesia staffing (CA1/CA3)' },
+                                { id: 'fish-p2', title: 'No OB-trained resident available' },
+                                { id: 'fish-p3', title: 'PACU resident engaged elsewhere' },
+                                { id: 'fish-p4', title: 'No designated hemorrhage leader' }
+                            ]
+                        },
+                        {
+                            id: 'fish-process',
+                            title: 'B. Process (Protocols / Workflow)',
+                            link: 'https://www.acog.org/clinical/clinical-guidance/practice-bulletin/articles/2017/10/postpartum-hemorrhage',
+                            linkText: 'ACOG PB #555',
+                            expanded: true,
+                            children: [
+                                { id: 'fish-pr1', title: 'No OB hemorrhage protocol' },
+                                { id: 'fish-pr2', title: 'No fibrinogen-based algorithm' },
+                                { id: 'fish-pr3', title: 'No PACU hemorrhage pathway' },
+                                { id: 'fish-pr4', title: 'No intra-op labs in first D&E' }
+                            ]
+                        },
+                        {
+                            id: 'fish-comm',
+                            title: 'C. Communication (Information Flow)',
+                            expanded: true,
+                            children: [
+                                { id: 'fish-c1', title: 'Secure chat delays' },
+                                { id: 'fish-c2', title: 'No closed-loop confirmation' },
+                                { id: 'fish-c3', title: 'No shared mental model between teams' }
+                            ]
+                        },
+                        {
+                            id: 'fish-equip',
+                            title: 'D. Equipment / Resources',
+                            expanded: true,
+                            children: [
+                                { id: 'fish-e1', title: 'Difficult IV access' },
+                                { id: 'fish-e2', title: 'No early arterial line' },
+                                { id: 'fish-e3', title: 'Hypothermia untreated' }
+                            ]
+                        },
+                        {
+                            id: 'fish-env',
+                            title: 'E. Environment (Staffing / Load)',
+                            expanded: true,
+                            children: [
+                                { id: 'fish-en1', title: 'Multiple simultaneous red cases' },
+                                { id: 'fish-en2', title: 'No automatic backup trigger' }
+                            ]
+                        },
+                        {
+                            id: 'fish-tech',
+                            title: 'F. Technology / Informatics',
+                            expanded: true,
+                            children: [
+                                { id: 'fish-t1', title: 'No critical lab alerting (fibrinogen 50 not flagged)' },
+                                { id: 'fish-t2', title: 'PACU labs not visible to OR team' },
+                                { id: 'fish-t3', title: 'No TEG/ROTEM available' }
+                            ]
+                        },
+                        {
+                            id: 'fish-policy',
+                            title: 'G. Policy / Governance',
+                            link: 'https://www.cmqcc.org/resources-tool-kits/toolkits/ob-hemorrhage-toolkit',
+                            linkText: 'CMQCC Toolkit',
+                            expanded: true,
+                            children: [
+                                { id: 'fish-po1', title: 'No OB hemorrhage bundle' },
+                                { id: 'fish-po2', title: 'No PACU escalation policy' },
+                                { id: 'fish-po3', title: 'No MTP customization for OB' }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'action',
+                    title: 'III. Policy-Ready Action Plan',
+                    expanded: true,
+                    children: [
+                        {
+                            id: 'action-gov',
+                            title: 'A. Governance & Ownership (30 days)',
+                            expanded: true,
+                            children: [
+                                { id: 'act-g1', title: 'Establish OB Hemorrhage Task Force' },
+                                { id: 'act-g2', title: 'Appoint OB Hemorrhage Medical Director' },
+                                { id: 'act-g3', title: 'Appoint PACU Hemorrhage Lead RN' }
+                            ]
+                        },
+                        {
+                            id: 'action-protocol',
+                            title: 'B. OB Hemorrhage Protocol (Level 2-3)',
+                            link: 'https://www.acog.org/clinical/clinical-guidance/obstetric-care-consensus/articles/2019/03/levels-of-maternal-care',
+                            linkText: 'ACOG Levels of Care',
+                            expanded: true,
+                            children: [
+                                { id: 'act-p1', title: 'Trigger: EBL >1000 mL, hemodynamic instability, fibrinogen <200, platelets <100k, INR >1.5' },
+                                { id: 'act-p2', title: 'Immediate: Activate OB-MTP, call OB anesthesia, assign hemorrhage leader, draw labs, start warming' }
+                            ]
+                        },
+                        {
+                            id: 'action-mtp',
+                            title: 'C. OB-Specific Massive Transfusion Protocol',
+                            link: 'https://www.aabb.org/blood-biotherapies/blood/transfusion-medicine/patient-blood-management',
+                            linkText: 'AABB Guidelines',
+                            expanded: true,
+                            children: [
+                                { id: 'act-m1', title: 'Default Pack: 4 RBC, 4 FFP, 1 apheresis platelet, 2 pools cryo' },
+                                { id: 'act-m2', title: 'Auto Add-On: Fibrinogen <200 → cryo x2; <100 → cryo x4 or concentrate' },
+                                { id: 'act-m3', title: 'Medications: TXA 1g IV, Calcium chloride 1g IV q4u products', link: 'https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(17)30638-4/fulltext', linkText: 'WOMAN Trial' }
+                            ]
+                        },
+                        {
+                            id: 'action-pacu',
+                            title: 'D. PACU Hemorrhage Escalation Policy',
+                            expanded: true,
+                            children: [
+                                { id: 'act-pa1', title: 'Vaginal bleeding >250 mL/hr → Call OB + Anesthesia' },
+                                { id: 'act-pa2', title: '>500 mL in PACU → Activate OB hemorrhage' },
+                                { id: 'act-pa3', title: 'Any coags abnormal → Immediate anesthesia evaluation' },
+                                { id: 'act-pa4', title: 'PACU RN Authority: May activate protocol without physician approval' }
+                            ]
+                        },
+                        {
+                            id: 'action-staff',
+                            title: 'E. Staffing & Backup Rules',
+                            expanded: true,
+                            children: [
+                                { id: 'act-s1', title: '>2 red cases → Call backup anesthesiologist' },
+                                { id: 'act-s2', title: 'OB hemorrhage → OB anesthesia attending in-house' },
+                                { id: 'act-s3', title: 'PACU hemorrhage → Anesthesia present within 10 min' }
+                            ]
+                        },
+                        {
+                            id: 'action-info',
+                            title: 'F. Informatics Enhancements (Epic/OpTime)',
+                            expanded: true,
+                            children: [
+                                { id: 'act-i1', title: 'Critical Value Alerts: Fibrinogen <150, INR >1.5, Platelets <100k' },
+                                { id: 'act-i2', title: 'OB Hemorrhage Order Set: Labs, MTP, Cryo, TXA, Calcium, Warming' },
+                                { id: 'act-i3', title: 'TEG/ROTEM Integration: Results visible in OpTime + PACU flowsheet' }
+                            ]
+                        },
+                        {
+                            id: 'action-train',
+                            title: 'G. Training & Simulation',
+                            expanded: true,
+                            children: [
+                                { id: 'act-tr1', title: 'OB hemorrhage simulation (OB + Anesthesia + PACU) — Semiannual' },
+                                { id: 'act-tr2', title: 'DIC recognition module (Anesthesia residents) — Annual' },
+                                { id: 'act-tr3', title: 'Closed-loop communication training (All) — Annual' }
+                            ]
+                        },
+                        {
+                            id: 'action-culture',
+                            title: 'H. Culture & Teaming',
+                            expanded: true,
+                            children: [
+                                { id: 'act-cu1', title: '"One leader, one plan, one voice" rule' },
+                                { id: 'act-cu2', title: 'Explicit verbal declaration: "This patient is in hemorrhagic shock..."' },
+                                { id: 'act-cu3', title: 'Mandatory closed-loop communication for all escalation orders' }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'metrics',
+                    title: 'IV. Performance Metrics (QI Dashboard)',
+                    expanded: true,
+                    children: [
+                        { id: 'met-1', title: 'Time to MTP activation: <10 min' },
+                        { id: 'met-2', title: 'Time to cryo: <15 min' },
+                        { id: 'met-3', title: 'Fibrinogen nadir: >150 mg/dL' },
+                        { id: 'met-4', title: 'Time to anesthesia at PACU hemorrhage: <10 min' },
+                        { id: 'met-5', title: '% OB hemorrhages using protocol: >90%' }
+                    ]
+                },
+                {
+                    id: 'conclusion',
+                    title: 'V. Conclusion',
+                    expanded: true,
+                    children: [
+                        { id: 'con-1', title: 'Classic Swiss-cheese hemorrhage failure with recognizable physiology' },
+                        { id: 'con-2', title: 'Correctable coagulopathy with delayed protocolized response' },
+                        { id: 'con-3', title: 'Structural staffing vulnerabilities identified' },
+                        { id: 'con-4', title: 'Action plan is policy-ready using existing national standards' }
+                    ]
+                }
+            ]
+        };
+
+        // Track expanded state
+        const expandedNodes = new Set();
+
+        // Initialize all nodes as expanded
+        function initializeExpandedNodes(node) {
+            if (node.expanded) {
+                expandedNodes.add(node.id);
+            }
+            if (node.children) {
+                node.children.forEach(child => initializeExpandedNodes(child));
+            }
+        }
+        initializeExpandedNodes(outlineData);
+
+        function renderTreeNode(node, level = 0) {
+            const hasChildren = node.children && node.children.length > 0;
+            const isExpanded = expandedNodes.has(node.id);
+            const isRoot = level === 0;
+            
+            const levelColors = {
+                0: 'text-slate-900 font-bold text-lg',
+                1: 'text-slate-800 font-semibold',
+                2: 'text-slate-700 font-medium',
+                3: 'text-slate-600'
+            };
+            
+            const textClass = levelColors[Math.min(level, 3)];
+            const paddingLeft = level === 0 ? '' : 'ml-6';
+            
+            let linkHtml = '';
+            if (node.link) {
+                linkHtml = `<a href="${node.link}" target="_blank" class="evidence-link">${node.linkText}</a>`;
+            }
+            
+            let html = `
+                <div class="${isRoot ? '' : 'tree-node'} ${paddingLeft} py-1">
+                    <div class="flex items-start gap-2 ${hasChildren ? 'tree-toggle' : ''} p-2 rounded-lg" 
+                         ${hasChildren ? `onclick="toggleNode('${node.id}')"` : ''}>
+            `;
+            
+            if (hasChildren) {
+                html += `
+                    <svg class="w-4 h-4 mt-1 text-slate-400 transition-transform ${isExpanded ? 'rotate-90' : ''}" 
+                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                `;
+            } else {
+                html += `<div class="w-4 h-4 mt-1 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-slate-300"></div></div>`;
+            }
+            
+            html += `
+                        <span class="${textClass}">${node.title}</span>
+                        ${linkHtml}
+                    </div>
+            `;
+            
+            if (hasChildren) {
+                html += `<div class="tree-children ${isExpanded ? 'expanded' : 'collapsed'}" id="children-${node.id}">`;
+                node.children.forEach(child => {
+                    html += renderTreeNode(child, level + 1);
+                });
+                html += `</div>`;
+            }
+            
+            html += `</div>`;
+            return html;
+        }
+
+        function renderOutline() {
+            const container = document.getElementById('outline-tree');
+            container.innerHTML = renderTreeNode(outlineData);
+        }
+
+        function toggleNode(nodeId) {
+            if (expandedNodes.has(nodeId)) {
+                expandedNodes.delete(nodeId);
+            } else {
+                expandedNodes.add(nodeId);
+            }
+            renderOutline();
+        }
+
+        function collectAllNodeIds(node, ids = []) {
+            ids.push(node.id);
+            if (node.children) {
+                node.children.forEach(child => collectAllNodeIds(child, ids));
+            }
+            return ids;
+        }
+
+        function expandAllNodes() {
+            const allIds = collectAllNodeIds(outlineData);
+            allIds.forEach(id => expandedNodes.add(id));
+            renderOutline();
+        }
+
+        function collapseAllNodes() {
+            expandedNodes.clear();
+            expandedNodes.add('root'); // Keep root expanded
+            renderOutline();
+        }
+
+        // Data
+        const swissCheeseData = [
+            { layer: 1, barrier: "Clinical Recognition", failed: "PACU hemorrhage severity underestimated; DIC not recognized despite labs", impact: "Ongoing bleeding untreated", color: "#ef4444" },
+            { layer: 2, barrier: "Laboratory Monitoring", failed: "PACU labs not reviewed or acted upon by anesthesia team", impact: "Catastrophic hypofibrinogenemia untreated", color: "#f97316" },
+            { layer: 3, barrier: "Communication", failed: "Secure chat delayed; messages not acknowledged or internalized", impact: "Delayed mobilization of anesthesia response", color: "#eab308" },
+            { layer: 4, barrier: "Team Structure", failed: "Junior resident-heavy staffing; no OB-experienced resident", impact: "Poor hemorrhage leadership", color: "#84cc16" },
+            { layer: 5, barrier: "Hemorrhage Protocol", failed: "No standardized OB hemorrhage trigger or fibrinogen-first protocol", impact: "No early cryoprecipitate", color: "#22c55e" },
+            { layer: 6, barrier: "Backup Activation", failed: "No early backup call despite multiple red cases", impact: "Resource saturation", color: "#14b8a6" },
+            { layer: 7, barrier: "Situational Awareness", failed: "OB and anesthesia teams had divergent understanding of severity", impact: "Delayed definitive therapy", color: "#06b6d4" },
+            { layer: 8, barrier: "Informatics", failed: "PACU labs invisible to OR team", impact: "No automated warning", color: "#3b82f6" },
+            { layer: 9, barrier: "Resuscitation", failed: "Only RBC initially; FFP, cryo delayed", impact: "Worsened coagulopathy", color: "#8b5cf6" },
+            { layer: 10, barrier: "Leadership", failed: "No single resuscitation coordinator", impact: "Fragmented response", color: "#d946ef" }
+        ];
+
+        const fishboneCategories = [
+            {
+                name: "People",
+                subtitle: "Training / Experience",
+                icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>`,
+                color: "#3b82f6",
+                factors: [
+                    { factor: "Junior anesthesia staffing", evidence: "CA1/CA3 primary caregivers", impact: "Limited hemorrhage/DIC experience" },
+                    { factor: "No OB-trained resident", evidence: "PGY2 resident had no OB anesthesia experience", impact: "Poor procedural hemorrhage management" },
+                    { factor: "PACU resident unavailable", evidence: "Resident engaged in other red case", impact: "No anesthesia response in PACU" },
+                    { factor: "No hemorrhage leader", evidence: "No attending owning global resuscitation", impact: "No coordinated response" }
+                ]
+            },
+            {
+                name: "Process",
+                subtitle: "Protocols / Workflow",
+                icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>`,
+                color: "#10b981",
+                factors: [
+                    { factor: "No OB hemorrhage protocol", evidence: "No defined escalation thresholds", impact: "Delayed MTP" },
+                    { factor: "No fibrinogen-based algorithm", evidence: "Cryo not ordered until intensivist arrived", impact: "Uncontrolled bleeding" },
+                    { factor: "No PACU hemorrhage pathway", evidence: "PACU relied on secure chat", impact: "Delayed anesthesia response" },
+                    { factor: "No intra-op labs in first D&E", evidence: "No trend of coagulopathy", impact: "Missed early DIC" }
+                ]
+            },
+            {
+                name: "Communication",
+                subtitle: "Information Flow",
+                icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>`,
+                color: "#f59e0b",
+                factors: [
+                    { factor: "Secure chat delays", evidence: "OB team reports delayed receipt", impact: "Time lost" },
+                    { factor: "No closed-loop confirmation", evidence: "Messages interpreted as 'bleeding improving'", impact: "False reassurance" },
+                    { factor: "No shared mental model", evidence: "OB thought patient unstable; anesthesia thought stable", impact: "Treatment mismatch" }
+                ]
+            },
+            {
+                name: "Equipment",
+                subtitle: "Resources",
+                icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>`,
+                color: "#8b5cf6",
+                factors: [
+                    { factor: "Difficult IV access", evidence: "Prolonged attempts", impact: "Delayed transfusion" },
+                    { factor: "No early A-line", evidence: "Placed only after intensivist arrival", impact: "Poor hemodynamic monitoring" },
+                    { factor: "Hypothermia untreated", evidence: "Not addressed early", impact: "Worsened coagulopathy" }
+                ]
+            },
+            {
+                name: "Environment",
+                subtitle: "Staffing / Load",
+                icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>`,
+                color: "#ec4899",
+                factors: [
+                    { factor: "Multiple red cases", evidence: "Craniectomy, ex-lap, AAA, two OB cases", impact: "Resource depletion" },
+                    { factor: "No automatic backup trigger", evidence: "Backup not called", impact: "Delayed expertise" }
+                ]
+            },
+            {
+                name: "Technology",
+                subtitle: "Informatics",
+                icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>`,
+                color: "#06b6d4",
+                factors: [
+                    { factor: "No critical lab alerting", evidence: "Fibrinogen 50 not flagged to anesthesia", impact: "Missed DIC" },
+                    { factor: "PACU labs not visible", evidence: "OR team unaware of labs", impact: "No cryo ordered" },
+                    { factor: "No TEG/ROTEM", evidence: "No real-time coagulation guidance", impact: "Empiric delay" }
+                ]
+            },
+            {
+                name: "Policy",
+                subtitle: "Governance",
+                icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>`,
+                color: "#64748b",
+                factors: [
+                    { factor: "No OB hemorrhage bundle", evidence: "No standardized response", impact: "Practice variability" },
+                    { factor: "No PACU escalation policy", evidence: "No anesthesia auto-call", impact: "Delay in resuscitation" },
+                    { factor: "No MTP customization for OB", evidence: "No automatic cryo", impact: "Inadequate hemostatic therapy" }
+                ]
+            }
+        ];
+
+        const actionSections = [
+            {
+                id: 'gov',
+                title: 'Governance & Ownership',
+                timeline: '30 days',
+                color: '#3b82f6',
+                content: `
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-3 py-2">
+                            <svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <div class="flex-1"><span class="text-slate-700">Establish OB Hemorrhage Task Force</span><span class="text-slate-400 mx-2">•</span><span class="text-sm text-slate-500">OB Chair + Anesthesia Chair</span></div>
+                        </div>
+                        <div class="flex items-center gap-3 py-2">
+                            <svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <div class="flex-1"><span class="text-slate-700">Appoint OB Hemorrhage Medical Director</span><span class="text-slate-400 mx-2">•</span><span class="text-sm text-slate-500">OB Anesthesia Division</span></div>
+                        </div>
+                        <div class="flex items-center gap-3 py-2">
+                            <svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <div class="flex-1"><span class="text-slate-700">Appoint PACU Hemorrhage Lead RN</span><span class="text-slate-400 mx-2">•</span><span class="text-sm text-slate-500">PACU Leadership</span></div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'protocol',
+                title: 'OB Hemorrhage Protocol (Level 2-3)',
+                color: '#10b981',
+                link: 'https://www.acog.org/clinical/clinical-guidance/obstetric-care-consensus/articles/2019/03/levels-of-maternal-care',
+                linkText: 'ACOG Levels of Care',
+                content: `
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-slate-700 mb-2">Trigger Criteria (any one):</h4>
+                        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                            <div class="flex items-center gap-2 p-2 bg-red-50 rounded-lg">
+                                <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                <span class="text-sm text-slate-700">EBL >1000 mL with ongoing bleeding</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 bg-red-50 rounded-lg">
+                                <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                <span class="text-sm text-slate-700">Hemodynamic instability</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 bg-red-50 rounded-lg">
+                                <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                <span class="text-sm text-slate-700">Fibrinogen <200 mg/dL</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 bg-red-50 rounded-lg">
+                                <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                <span class="text-sm text-slate-700">Platelets <100k</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 bg-red-50 rounded-lg">
+                                <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                <span class="text-sm text-slate-700">INR >1.5</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 bg-red-50 rounded-lg">
+                                <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                <span class="text-sm text-slate-700">Clinician concern</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-slate-700 mb-2">Immediate Actions:</h4>
+                        <div class="grid sm:grid-cols-2 gap-2">
+                            <div class="flex items-center gap-2 p-2 bg-green-50 rounded-lg">
+                                <svg class="w-4 h-4 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span class="text-sm text-slate-700">Activate OB-MTP</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 bg-green-50 rounded-lg">
+                                <svg class="w-4 h-4 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span class="text-sm text-slate-700">Call OB anesthesia attending</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 bg-green-50 rounded-lg">
+                                <svg class="w-4 h-4 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span class="text-sm text-slate-700">Call backup anesthesia</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 bg-green-50 rounded-lg">
+                                <svg class="w-4 h-4 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span class="text-sm text-slate-700">Assign hemorrhage leader</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 bg-green-50 rounded-lg">
+                                <svg class="w-4 h-4 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span class="text-sm text-slate-700">Draw labs: CBC, PT/INR, aPTT, fibrinogen, TEG/ROTEM</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 bg-green-50 rounded-lg">
+                                <svg class="w-4 h-4 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span class="text-sm text-slate-700">Start warming</span>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'mtp',
+                title: 'OB-Specific Massive Transfusion Protocol',
+                color: '#8b5cf6',
+                link: 'https://www.aabb.org/blood-biotherapies/blood/transfusion-medicine/patient-blood-management',
+                linkText: 'AABB Guidelines',
+                content: `
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-slate-700 mb-3">Default Initial Pack:</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2 p-2 rounded-lg" style="background-color: rgba(239, 68, 68, 0.1)">
+                                    <div class="w-3 h-3 rounded-full" style="background-color: #ef4444"></div>
+                                    <span class="font-medium text-slate-700">4 RBC</span>
+                                </div>
+                                <div class="flex items-center gap-2 p-2 rounded-lg" style="background-color: rgba(245, 158, 11, 0.1)">
+                                    <div class="w-3 h-3 rounded-full" style="background-color: #f59e0b"></div>
+                                    <span class="font-medium text-slate-700">4 FFP</span>
+                                </div>
+                                <div class="flex items-center gap-2 p-2 rounded-lg" style="background-color: rgba(59, 130, 246, 0.1)">
+                                    <div class="w-3 h-3 rounded-full" style="background-color: #3b82f6"></div>
+                                    <span class="font-medium text-slate-700">1 Apheresis Platelet</span>
+                                </div>
+                                <div class="flex items-center gap-2 p-2 rounded-lg" style="background-color: rgba(139, 92, 246, 0.1)">
+                                    <div class="w-3 h-3 rounded-full" style="background-color: #8b5cf6"></div>
+                                    <span class="font-medium text-slate-700">2 Pools Cryoprecipitate</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-slate-700 mb-3">Automatic Add-Ons:</h4>
+                            <div class="space-y-2 text-sm">
+                                <div class="p-2 bg-slate-50 rounded-lg">
+                                    <strong>Fibrinogen &lt;200:</strong> Cryo ×2 pools
+                                </div>
+                                <div class="p-2 bg-slate-50 rounded-lg">
+                                    <strong>Fibrinogen &lt;100:</strong> Cryo ×4 pools or fibrinogen concentrate
+                                </div>
+                                <div class="p-2 bg-slate-50 rounded-lg">
+                                    <strong>Ongoing bleeding:</strong> Repeat pack
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t">
+                        <h4 class="font-semibold text-slate-700 mb-2">Medication Defaults:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">TXA 1g IV (unless active thrombosis) <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(17)30638-4/fulltext" target="_blank" class="underline ml-1">WOMAN Trial</a></span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">Calcium chloride 1g IV q4u products</span>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'pacu',
+                title: 'PACU Hemorrhage Escalation Policy',
+                color: '#ec4899',
+                content: `
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="border-b">
+                                    <th class="text-left p-2 text-slate-600">Trigger</th>
+                                    <th class="text-left p-2 text-slate-600">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b hover:bg-slate-50">
+                                    <td class="p-2">Vaginal bleeding &gt;250 mL/hr</td>
+                                    <td class="p-2 font-medium text-blue-600">Call OB + Anesthesia</td>
+                                </tr>
+                                <tr class="border-b hover:bg-slate-50">
+                                    <td class="p-2">&gt;500 mL in PACU</td>
+                                    <td class="p-2 font-medium text-orange-600">Activate OB hemorrhage</td>
+                                </tr>
+                                <tr class="border-b hover:bg-slate-50">
+                                    <td class="p-2">Any coags abnormal</td>
+                                    <td class="p-2 font-medium text-purple-600">Immediate anesthesia evaluation</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-2">Fibrinogen &lt;200</td>
+                                    <td class="p-2 font-medium text-red-600">Activate OB-MTP</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-3 bg-amber-50 rounded-lg border border-amber-200">
+                        <p class="text-amber-800 text-sm font-medium">
+                            ⚡ PACU RN Authority: May activate hemorrhage protocol without physician approval
+                        </p>
+                    </div>
+                `
+            },
+            {
+                id: 'staff',
+                title: 'Staffing & Backup Rules',
+                color: '#06b6d4',
+                content: `
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3 p-3 bg-cyan-50 rounded-lg">
+                            <div class="w-2 h-2 rounded-full bg-cyan-500 mt-2"></div>
+                            <div>
+                                <p class="font-medium text-slate-800">&gt;2 red cases active</p>
+                                <p class="text-sm text-slate-600">→ Call backup anesthesiologist</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-cyan-50 rounded-lg">
+                            <div class="w-2 h-2 rounded-full bg-cyan-500 mt-2"></div>
+                            <div>
+                                <p class="font-medium text-slate-800">OB hemorrhage</p>
+                                <p class="text-sm text-slate-600">→ OB anesthesia attending in-house</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-cyan-50 rounded-lg">
+                            <div class="w-2 h-2 rounded-full bg-cyan-500 mt-2"></div>
+                            <div>
+                                <p class="font-medium text-slate-800">PACU hemorrhage</p>
+                                <p class="text-sm text-slate-600">→ Anesthesia present within 10 min</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'info',
+                title: 'Informatics Enhancements (Epic/OpTime)',
+                color: '#64748b',
+                content: `
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-slate-50 rounded-xl">
+                            <h4 class="font-semibold text-slate-700 mb-2">Critical Value Alerts</h4>
+                            <ul class="space-y-1 text-sm text-slate-600">
+                                <li>• Fibrinogen &lt;150</li>
+                                <li>• INR &gt;1.5</li>
+                                <li>• Platelets &lt;100k</li>
+                            </ul>
+                            <p class="mt-2 text-xs text-blue-600">→ Auto-alert to anesthesia + OR board</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl">
+                            <h4 class="font-semibold text-slate-700 mb-2">OB Hemorrhage Order Set</h4>
+                            <ul class="space-y-1 text-sm text-slate-600">
+                                <li>• Labs</li>
+                                <li>• MTP</li>
+                                <li>• Cryoprecipitate</li>
+                                <li>• TXA & Calcium</li>
+                                <li>• Warming</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl">
+                            <h4 class="font-semibold text-slate-700 mb-2">TEG/ROTEM Integration</h4>
+                            <p class="text-sm text-slate-600">
+                                Results visible in OpTime + PACU flowsheet
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'train',
+                title: 'Training & Simulation',
+                color: '#f59e0b',
+                content: `
+                    <div class="grid sm:grid-cols-3 gap-4">
+                        <div class="text-center p-4 bg-amber-50 rounded-xl">
+                            <p class="text-3xl mb-2">🏥</p>
+                            <h4 class="font-semibold text-slate-700">OB Hemorrhage Simulation</h4>
+                            <p class="text-sm text-slate-500 mt-1">OB + Anesthesia + PACU</p>
+                            <span class="inline-block mt-2 px-2 py-1 bg-amber-200 text-amber-800 rounded text-xs font-medium">Semiannual</span>
+                        </div>
+                        <div class="text-center p-4 bg-amber-50 rounded-xl">
+                            <p class="text-3xl mb-2">📚</p>
+                            <h4 class="font-semibold text-slate-700">DIC Recognition Module</h4>
+                            <p class="text-sm text-slate-500 mt-1">Anesthesia residents</p>
+                            <span class="inline-block mt-2 px-2 py-1 bg-amber-200 text-amber-800 rounded text-xs font-medium">Annual</span>
+                        </div>
+                        <div class="text-center p-4 bg-amber-50 rounded-xl">
+                            <p class="text-3xl mb-2">💬</p>
+                            <h4 class="font-semibold text-slate-700">Closed-Loop Comm Training</h4>
+                            <p class="text-sm text-slate-500 mt-1">All staff</p>
+                            <span class="inline-block mt-2 px-2 py-1 bg-amber-200 text-amber-800 rounded text-xs font-medium">Annual</span>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'culture',
+                title: 'Culture & Teaming',
+                color: '#22c55e',
+                content: `
+                    <div class="space-y-4">
+                        <div class="p-4 bg-green-50 rounded-xl border-l-4 border-green-500">
+                            <h4 class="font-bold text-green-800">One Leader, One Plan, One Voice</h4>
+                            <p class="text-sm text-green-700 mt-1">Establish clear command structure during hemorrhage events</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl">
+                            <h4 class="font-semibold text-slate-700 mb-2">Explicit Verbal Declaration:</h4>
+                            <p class="italic text-slate-600 bg-white p-3 rounded border">
+                                "This patient is in hemorrhagic shock with coagulopathy. We are activating OB-MTP now."
+                            </p>
+                        </div>
+                        <div class="p-4 bg-blue-50 rounded-xl">
+                            <h4 class="font-semibold text-blue-800">Mandatory Closed-Loop Communication</h4>
+                            <p class="text-sm text-blue-700 mt-1">Every escalation order must be verbally confirmed</p>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        const metrics = [
+            { name: "Time to MTP activation", target: "<10 min", icon: "clock" },
+            { name: "Time to cryo", target: "<15 min", icon: "clock" },
+            { name: "Fibrinogen nadir", target: ">150 mg/dL", icon: "activity" },
+            { name: "Time to anesthesia at PACU hemorrhage", target: "<10 min", icon: "clock" },
+            { name: "% OB hemorrhages using protocol", target: ">90%", icon: "target" }
+        ];
+
+        // State
+        let selectedLayer = null;
+        let selectedCategory = null;
+        let expandedAction = null;
+
+        // Functions
+        function switchTab(tabId) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('bg-white', 'text-slate-600', 'hover:bg-slate-50');
+            });
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            activeBtn.classList.add('tab-active');
+            activeBtn.classList.remove('bg-white', 'text-slate-600', 'hover:bg-slate-50');
+
+            // Update content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+        }
+
+        function renderSwissCheese() {
+            const container = document.getElementById('swiss-cheese-layers');
+            container.innerHTML = swissCheeseData.map(item => `
+                <div onclick="toggleSwissLayer(${item.layer})" 
+                     class="relative overflow-hidden rounded-xl cursor-pointer transition-all duration-300 ${selectedLayer === item.layer ? 'ring-2 ring-blue-500' : ''}"
+                     id="swiss-layer-${item.layer}">
+                    <div class="p-4" style="background-color: ${item.color}15">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold shrink-0"
+                                 style="background-color: ${item.color}">
+                                ${item.layer}
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-semibold text-slate-800">${item.barrier}</h3>
+                                <p class="text-sm text-slate-500 truncate">${item.impact}</p>
+                            </div>
+                            <svg class="w-5 h-5 text-slate-400 chevron-rotate ${selectedLayer === item.layer ? 'rotated' : ''}" 
+                                 id="chevron-${item.layer}"
+                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                        
+                        <div class="expand-content ${selectedLayer === item.layer ? 'expanded' : ''}" id="detail-${item.layer}">
+                            <div class="pt-4 border-t border-slate-200">
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h4 class="text-sm font-semibold text-slate-600 mb-1">What Failed</h4>
+                                        <p class="text-sm text-slate-700">${item.failed}</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-semibold text-slate-600 mb-1">Contribution to Harm</h4>
+                                        <p class="text-sm text-slate-700">${item.impact}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute right-4 top-1/2 -translate-y-1/2 flex gap-1 swiss-cheese-hole pointer-events-none" style="right: 50px;">
+                        <div class="w-3 h-3 rounded-full" style="background-color: ${item.color}"></div>
+                        <div class="w-3 h-3 rounded-full" style="background-color: ${item.color}"></div>
+                        <div class="w-3 h-3 rounded-full" style="background-color: ${item.color}"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleSwissLayer(layer) {
+            selectedLayer = selectedLayer === layer ? null : layer;
+            renderSwissCheese();
+        }
+
+        function renderFishbone() {
+            const container = document.getElementById('fishbone-categories');
+            container.innerHTML = fishboneCategories.map(cat => `
+                <button onclick="toggleFishboneCategory('${cat.name}')"
+                        class="category-card p-4 rounded-xl text-left transition-all ${selectedCategory === cat.name ? 'selected' : ''}"
+                        style="background-color: ${selectedCategory === cat.name ? cat.color + '15' : '#f8fafc'}; ${selectedCategory === cat.name ? 'box-shadow: 0 0 0 2px ' + cat.color : ''}">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded-lg" style="background-color: ${cat.color}20">
+                            <span style="color: ${cat.color}">${cat.icon}</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-slate-800">${cat.name}</h3>
+                            <p class="text-xs text-slate-500">${cat.subtitle}</p>
+                        </div>
+                    </div>
+                    <div class="mt-2 text-sm text-slate-600">
+                        ${cat.factors.length} contributing factors
+                    </div>
+                </button>
+            `).join('');
+
+            // Render detail if category selected
+            const detailContainer = document.getElementById('fishbone-detail');
+            if (selectedCategory) {
+                const cat = fishboneCategories.find(c => c.name === selectedCategory);
+                detailContainer.classList.remove('hidden');
+                detailContainer.innerHTML = `
+                    <div class="p-4 flex items-center gap-3" style="background-color: ${cat.color}10">
+                        <span style="color: ${cat.color}">${cat.icon}</span>
+                        <h3 class="font-bold text-lg text-slate-800">${cat.name}: ${cat.subtitle}</h3>
+                    </div>
+                    <div class="divide-y">
+                        ${cat.factors.map(factor => `
+                            <div class="p-4 hover:bg-slate-50">
+                                <div class="grid md:grid-cols-3 gap-4">
+                                    <div>
+                                        <span class="text-xs font-semibold text-slate-400 uppercase">Factor</span>
+                                        <p class="text-slate-800 font-medium">${factor.factor}</p>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-semibold text-slate-400 uppercase">Evidence</span>
+                                        <p class="text-slate-600">${factor.evidence}</p>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-semibold text-slate-400 uppercase">Impact</span>
+                                        <p class="text-red-600 font-medium">${factor.impact}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else {
+                detailContainer.classList.add('hidden');
+            }
+        }
+
+        function toggleFishboneCategory(name) {
+            selectedCategory = selectedCategory === name ? null : name;
+            renderFishbone();
+        }
+
+        function renderActionSections() {
+            const container = document.getElementById('action-sections');
+            container.innerHTML = actionSections.map(section => `
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <button onclick="toggleActionSection('${section.id}')"
+                            class="w-full p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <div class="w-1 h-8 rounded-full" style="background-color: ${section.color}"></div>
+                            <h3 class="font-bold text-slate-800">${section.title}</h3>
+                            ${section.timeline ? `<span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">${section.timeline}</span>` : ''}
+                            ${section.link ? `<a href="${section.link}" target="_blank" class="evidence-link" onclick="event.stopPropagation()">${section.linkText}</a>` : ''}
+                        </div>
+                        <svg class="w-5 h-5 text-slate-400 chevron-rotate ${expandedAction === section.id ? 'rotated' : ''}" 
+                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                    <div class="expand-content ${expandedAction === section.id ? 'expanded' : ''} px-4 pb-4">
+                        <div class="border-t border-slate-100 pt-4">
+                            ${section.content}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleActionSection(id) {
+            expandedAction = expandedAction === id ? null : id;
+            renderActionSections();
+        }
+
+        function renderMetrics() {
+            const container = document.getElementById('metrics-grid');
+            const iconMap = {
+                clock: `<svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+                activity: `<svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
+                target: `<svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`
+            };
+            
+            container.innerHTML = metrics.map(metric => `
+                <div class="p-5 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl border border-slate-200">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-blue-100 rounded-lg">
+                            ${iconMap[metric.icon]}
+                        </div>
+                        <span class="text-2xl font-bold text-blue-600">${metric.target}</span>
+                    </div>
+                    <p class="text-slate-700 font-medium">${metric.name}</p>
+                </div>
+            `).join('');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderOutline();
+            renderSwissCheese();
+            renderFishbone();
+            renderActionSections();
+            renderMetrics();
+        });
+    </script>
+</body>
+</html>
