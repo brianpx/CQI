@@ -132,10 +132,36 @@
             background: #dbeafe;
             text-decoration: underline;
         }
+        
+        .disclaimer-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .governance-footer {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-top: 3px solid #64748b;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 md:p-8">
     <div class="max-w-7xl mx-auto">
+        
+        <!-- CQI Privacy Disclaimer -->
+        <div class="disclaimer-box rounded-xl p-4 mb-6">
+            <div class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <div>
+                    <h3 class="font-semibold text-amber-800 mb-1">CQI Document Notice</h3>
+                    <p class="text-sm text-amber-900">
+                        This quality improvement document is based on a <strong>de-identified composite case</strong>. All clinical details have been generalized to protect patient and staff privacy. This artifact is intended for <strong>education, simulation, and quality improvement design</strong> purposes only and does not represent a single identifiable clinical event.
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <!-- Header -->
         <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
             <div class="flex items-start gap-4">
@@ -247,7 +273,7 @@
                 
                 <div class="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-200">
                     <p class="text-amber-800 text-sm">
-                        <strong>Key Insight:</strong> When all 10 layers failed simultaneously, hazards passed through every barrier, resulting in patient harm. Each layer represents an opportunity for intervention.
+                        <strong>Key Insight:</strong> When multiple layers fail simultaneously, hazards pass through every barrier, resulting in patient harm. Each layer represents an opportunity for intervention.
                     </p>
                 </div>
             </div>
@@ -289,7 +315,7 @@
                 <div class="mt-8 p-6 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl text-white">
                     <h3 class="text-lg font-bold mb-3">Bottom Line</h3>
                     <p class="text-blue-100 mb-4">
-                        This event reflects a <strong class="text-white">classic Swiss-cheese hemorrhage failure</strong> with:
+                        This composite case reflects a <strong class="text-white">classic Swiss-cheese hemorrhage failure pattern</strong> with:
                     </p>
                     <ul class="grid sm:grid-cols-2 gap-2 text-sm">
                         <li class="flex items-center gap-2">
@@ -319,16 +345,59 @@
                     </ul>
                     <div class="mt-4 pt-4 border-t border-blue-500">
                         <p class="text-sm text-blue-100">
-                            The proposed action plan is <strong class="text-white">policy-ready</strong>, uses <strong class="text-white">existing national standards</strong>, and directly closes the causal pathways that led to harm.
+                            The proposed action plan is <strong class="text-white">policy-ready</strong>, uses <strong class="text-white">existing national standards</strong>, and directly closes the causal pathways identified in this analysis.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- CQI Governance Attestation Footer -->
+        <div class="governance-footer rounded-xl p-6 mt-8">
+            <h3 class="font-bold text-slate-700 mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+                CQI Governance Attestation
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6 text-sm">
+                <div>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-slate-600 mb-1">Composite Case Declaration</h4>
+                        <p class="text-slate-500">This document is based on a de-identified composite case derived from multiple sources. No single patient or clinical event can be identified from this artifact.</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-slate-600 mb-1">Educational Use Limitation</h4>
+                        <p class="text-slate-500">Intended exclusively for quality improvement education, simulation training, and protocol development. Not for clinical decision-making or individual case review.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-slate-600 mb-1">Non-Punitive Intent</h4>
+                        <p class="text-slate-500">Created in accordance with institutional CQI principles. Analysis focuses on system improvements, not individual performance evaluation.</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-slate-600 mb-1">Data Governance Statement</h4>
+                        <p class="text-slate-500">All identifiable clinical, temporal, and personnel details have been removed or generalized. Document complies with institutional de-identification standards for CQI materials.</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-slate-600 mb-1">Distribution Authorization</h4>
+                        <p class="text-slate-500">Approved for internal distribution to: QI committees, residency education programs, nursing education, and simulation centers.</p>
+                    </div>
+                    <div class="p-3 bg-white rounded-lg border border-slate-200">
+                        <div class="flex justify-between text-xs text-slate-400">
+                            <span>Document Version: 1.0</span>
+                            <span>Classification: CQI Educational Material</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // Outline tree data structure
+        // Outline tree data structure (DE-IDENTIFIED)
         const outlineData = {
             id: 'root',
             title: 'OB Hemorrhage CQI Analysis & Improvement Proposal',
@@ -341,16 +410,16 @@
                     linkText: 'Reason J, BMJ 2000',
                     expanded: true,
                     children: [
-                        { id: 'swiss-1', title: '1. Clinical Recognition — PACU hemorrhage severity underestimated' },
-                        { id: 'swiss-2', title: '2. Laboratory Monitoring — PACU labs not reviewed by anesthesia' },
-                        { id: 'swiss-3', title: '3. Communication — Secure chat delays; messages not acknowledged' },
-                        { id: 'swiss-4', title: '4. Team Structure — Junior resident-heavy staffing' },
-                        { id: 'swiss-5', title: '5. Hemorrhage Protocol — No standardized OB hemorrhage trigger' },
-                        { id: 'swiss-6', title: '6. Backup Activation — No early backup call despite red cases' },
-                        { id: 'swiss-7', title: '7. Situational Awareness — Divergent understanding of severity' },
-                        { id: 'swiss-8', title: '8. Informatics — PACU labs invisible to OR team' },
-                        { id: 'swiss-9', title: '9. Resuscitation — Only RBC initially; FFP, cryo delayed' },
-                        { id: 'swiss-10', title: '10. Leadership — No single resuscitation coordinator' }
+                        { id: 'swiss-1', title: '1. Clinical Recognition — Post-procedural hemorrhage severity underestimated' },
+                        { id: 'swiss-2', title: '2. Laboratory Monitoring — Critical labs not reviewed by responding team' },
+                        { id: 'swiss-3', title: '3. Communication — Electronic messaging delays; acknowledgment gaps' },
+                        { id: 'swiss-4', title: '4. Team Structure — Junior-heavy anesthesia staffing pattern' },
+                        { id: 'swiss-5', title: '5. Hemorrhage Protocol — No standardized OB hemorrhage trigger criteria' },
+                        { id: 'swiss-6', title: '6. Backup Activation — No early backup call despite concurrent emergencies' },
+                        { id: 'swiss-7', title: '7. Situational Awareness — Divergent team understanding of clinical severity' },
+                        { id: 'swiss-8', title: '8. Informatics — Cross-location lab result visibility gaps' },
+                        { id: 'swiss-9', title: '9. Resuscitation — Initial RBC-only transfusion; delayed hemostatic products' },
+                        { id: 'swiss-10', title: '10. Leadership — No designated resuscitation coordinator' }
                     ]
                 },
                 {
@@ -363,10 +432,10 @@
                             title: 'A. People (Training / Experience)',
                             expanded: true,
                             children: [
-                                { id: 'fish-p1', title: 'Junior anesthesia staffing (CA1/CA3)' },
-                                { id: 'fish-p2', title: 'No OB-trained resident available' },
-                                { id: 'fish-p3', title: 'PACU resident engaged elsewhere' },
-                                { id: 'fish-p4', title: 'No designated hemorrhage leader' }
+                                { id: 'fish-p1', title: 'Junior-heavy anesthesia staffing pattern' },
+                                { id: 'fish-p2', title: 'Limited OB-specific anesthesia experience on team' },
+                                { id: 'fish-p3', title: 'Anesthesia team occupied with concurrent emergencies' },
+                                { id: 'fish-p4', title: 'No designated hemorrhage leader identified' }
                             ]
                         },
                         {
@@ -376,10 +445,10 @@
                             linkText: 'ACOG PB #555',
                             expanded: true,
                             children: [
-                                { id: 'fish-pr1', title: 'No OB hemorrhage protocol' },
-                                { id: 'fish-pr2', title: 'No fibrinogen-based algorithm' },
-                                { id: 'fish-pr3', title: 'No PACU hemorrhage pathway' },
-                                { id: 'fish-pr4', title: 'No intra-op labs in first D&E' }
+                                { id: 'fish-pr1', title: 'No OB hemorrhage protocol with defined thresholds' },
+                                { id: 'fish-pr2', title: 'No fibrinogen-based resuscitation algorithm' },
+                                { id: 'fish-pr3', title: 'No standardized recovery unit hemorrhage pathway' },
+                                { id: 'fish-pr4', title: 'Intra-operative coagulation monitoring not performed' }
                             ]
                         },
                         {
@@ -387,9 +456,9 @@
                             title: 'C. Communication (Information Flow)',
                             expanded: true,
                             children: [
-                                { id: 'fish-c1', title: 'Secure chat delays' },
-                                { id: 'fish-c2', title: 'No closed-loop confirmation' },
-                                { id: 'fish-c3', title: 'No shared mental model between teams' }
+                                { id: 'fish-c1', title: 'Electronic messaging system delays' },
+                                { id: 'fish-c2', title: 'No closed-loop communication confirmation' },
+                                { id: 'fish-c3', title: 'Divergent team mental models of patient status' }
                             ]
                         },
                         {
@@ -397,9 +466,9 @@
                             title: 'D. Equipment / Resources',
                             expanded: true,
                             children: [
-                                { id: 'fish-e1', title: 'Difficult IV access' },
-                                { id: 'fish-e2', title: 'No early arterial line' },
-                                { id: 'fish-e3', title: 'Hypothermia untreated' }
+                                { id: 'fish-e1', title: 'Difficult vascular access' },
+                                { id: 'fish-e2', title: 'Delayed invasive hemodynamic monitoring' },
+                                { id: 'fish-e3', title: 'Hypothermia management not initiated early' }
                             ]
                         },
                         {
@@ -407,8 +476,8 @@
                             title: 'E. Environment (Staffing / Load)',
                             expanded: true,
                             children: [
-                                { id: 'fish-en1', title: 'Multiple simultaneous red cases' },
-                                { id: 'fish-en2', title: 'No automatic backup trigger' }
+                                { id: 'fish-en1', title: 'Multiple simultaneous high-acuity surgical cases' },
+                                { id: 'fish-en2', title: 'No automatic backup activation trigger' }
                             ]
                         },
                         {
@@ -416,9 +485,9 @@
                             title: 'F. Technology / Informatics',
                             expanded: true,
                             children: [
-                                { id: 'fish-t1', title: 'No critical lab alerting (fibrinogen 50 not flagged)' },
-                                { id: 'fish-t2', title: 'PACU labs not visible to OR team' },
-                                { id: 'fish-t3', title: 'No TEG/ROTEM available' }
+                                { id: 'fish-t1', title: 'No critical lab value alerting to care team' },
+                                { id: 'fish-t2', title: 'Cross-location lab result visibility gaps' },
+                                { id: 'fish-t3', title: 'No point-of-care coagulation testing available' }
                             ]
                         },
                         {
@@ -428,9 +497,9 @@
                             linkText: 'CMQCC Toolkit',
                             expanded: true,
                             children: [
-                                { id: 'fish-po1', title: 'No OB hemorrhage bundle' },
-                                { id: 'fish-po2', title: 'No PACU escalation policy' },
-                                { id: 'fish-po3', title: 'No MTP customization for OB' }
+                                { id: 'fish-po1', title: 'No OB hemorrhage bundle implemented' },
+                                { id: 'fish-po2', title: 'No recovery unit escalation policy' },
+                                { id: 'fish-po3', title: 'No OB-specific MTP customization' }
                             ]
                         }
                     ]
@@ -447,7 +516,7 @@
                             children: [
                                 { id: 'act-g1', title: 'Establish OB Hemorrhage Task Force' },
                                 { id: 'act-g2', title: 'Appoint OB Hemorrhage Medical Director' },
-                                { id: 'act-g3', title: 'Appoint PACU Hemorrhage Lead RN' }
+                                { id: 'act-g3', title: 'Appoint Recovery Unit Hemorrhage Lead RN' }
                             ]
                         },
                         {
@@ -457,7 +526,7 @@
                             linkText: 'ACOG Levels of Care',
                             expanded: true,
                             children: [
-                                { id: 'act-p1', title: 'Trigger: EBL >1000 mL, hemodynamic instability, fibrinogen <200, platelets <100k, INR >1.5' },
+                                { id: 'act-p1', title: 'Trigger: Significant blood loss with ongoing bleeding, hemodynamic instability, severely low fibrinogen, thrombocytopenia, marked coagulopathy' },
                                 { id: 'act-p2', title: 'Immediate: Activate OB-MTP, call OB anesthesia, assign hemorrhage leader, draw labs, start warming' }
                             ]
                         },
@@ -468,20 +537,20 @@
                             linkText: 'AABB Guidelines',
                             expanded: true,
                             children: [
-                                { id: 'act-m1', title: 'Default Pack: 4 RBC, 4 FFP, 1 apheresis platelet, 2 pools cryo' },
-                                { id: 'act-m2', title: 'Auto Add-On: Fibrinogen <200 → cryo x2; <100 → cryo x4 or concentrate' },
-                                { id: 'act-m3', title: 'Medications: TXA 1g IV, Calcium chloride 1g IV q4u products', link: 'https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(17)30638-4/fulltext', linkText: 'WOMAN Trial' }
+                                { id: 'act-m1', title: 'Default Pack: Balanced ratio of RBC, plasma, platelets, and cryoprecipitate' },
+                                { id: 'act-m2', title: 'Auto Add-On: Fibrinogen-based escalation per protocol thresholds' },
+                                { id: 'act-m3', title: 'Medications: TXA per protocol, calcium replacement', link: 'https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(17)30638-4/fulltext', linkText: 'WOMAN Trial' }
                             ]
                         },
                         {
                             id: 'action-pacu',
-                            title: 'D. PACU Hemorrhage Escalation Policy',
+                            title: 'D. Recovery Unit Hemorrhage Escalation Policy',
                             expanded: true,
                             children: [
-                                { id: 'act-pa1', title: 'Vaginal bleeding >250 mL/hr → Call OB + Anesthesia' },
-                                { id: 'act-pa2', title: '>500 mL in PACU → Activate OB hemorrhage' },
-                                { id: 'act-pa3', title: 'Any coags abnormal → Immediate anesthesia evaluation' },
-                                { id: 'act-pa4', title: 'PACU RN Authority: May activate protocol without physician approval' }
+                                { id: 'act-pa1', title: 'Bleeding rate thresholds → Call OB + Anesthesia' },
+                                { id: 'act-pa2', title: 'Cumulative blood loss threshold → Activate OB hemorrhage' },
+                                { id: 'act-pa3', title: 'Any coagulation abnormality → Immediate anesthesia evaluation' },
+                                { id: 'act-pa4', title: 'RN Authority: May activate protocol without physician approval' }
                             ]
                         },
                         {
@@ -489,19 +558,19 @@
                             title: 'E. Staffing & Backup Rules',
                             expanded: true,
                             children: [
-                                { id: 'act-s1', title: '>2 red cases → Call backup anesthesiologist' },
+                                { id: 'act-s1', title: 'Multiple concurrent emergencies → Call backup anesthesiologist' },
                                 { id: 'act-s2', title: 'OB hemorrhage → OB anesthesia attending in-house' },
-                                { id: 'act-s3', title: 'PACU hemorrhage → Anesthesia present within 10 min' }
+                                { id: 'act-s3', title: 'Recovery unit hemorrhage → Anesthesia response time standard' }
                             ]
                         },
                         {
                             id: 'action-info',
-                            title: 'F. Informatics Enhancements (Epic/OpTime)',
+                            title: 'F. Informatics Enhancements',
                             expanded: true,
                             children: [
-                                { id: 'act-i1', title: 'Critical Value Alerts: Fibrinogen <150, INR >1.5, Platelets <100k' },
-                                { id: 'act-i2', title: 'OB Hemorrhage Order Set: Labs, MTP, Cryo, TXA, Calcium, Warming' },
-                                { id: 'act-i3', title: 'TEG/ROTEM Integration: Results visible in OpTime + PACU flowsheet' }
+                                { id: 'act-i1', title: 'Critical Value Alerts: Coagulation parameters per protocol thresholds' },
+                                { id: 'act-i2', title: 'OB Hemorrhage Order Set: Labs, MTP, hemostatic products, medications, warming' },
+                                { id: 'act-i3', title: 'Point-of-care coagulation integration into clinical workflow' }
                             ]
                         },
                         {
@@ -509,9 +578,9 @@
                             title: 'G. Training & Simulation',
                             expanded: true,
                             children: [
-                                { id: 'act-tr1', title: 'OB hemorrhage simulation (OB + Anesthesia + PACU) — Semiannual' },
-                                { id: 'act-tr2', title: 'DIC recognition module (Anesthesia residents) — Annual' },
-                                { id: 'act-tr3', title: 'Closed-loop communication training (All) — Annual' }
+                                { id: 'act-tr1', title: 'OB hemorrhage simulation (multidisciplinary) — Semiannual' },
+                                { id: 'act-tr2', title: 'Coagulopathy recognition module — Annual' },
+                                { id: 'act-tr3', title: 'Closed-loop communication training — Annual' }
                             ]
                         },
                         {
@@ -520,7 +589,7 @@
                             expanded: true,
                             children: [
                                 { id: 'act-cu1', title: '"One leader, one plan, one voice" rule' },
-                                { id: 'act-cu2', title: 'Explicit verbal declaration: "This patient is in hemorrhagic shock..."' },
+                                { id: 'act-cu2', title: 'Explicit verbal declaration of hemorrhage crisis activation' },
                                 { id: 'act-cu3', title: 'Mandatory closed-loop communication for all escalation orders' }
                             ]
                         }
@@ -531,11 +600,11 @@
                     title: 'IV. Performance Metrics (QI Dashboard)',
                     expanded: true,
                     children: [
-                        { id: 'met-1', title: 'Time to MTP activation: <10 min' },
-                        { id: 'met-2', title: 'Time to cryo: <15 min' },
-                        { id: 'met-3', title: 'Fibrinogen nadir: >150 mg/dL' },
-                        { id: 'met-4', title: 'Time to anesthesia at PACU hemorrhage: <10 min' },
-                        { id: 'met-5', title: '% OB hemorrhages using protocol: >90%' }
+                        { id: 'met-1', title: 'Time to MTP activation: Per protocol standard' },
+                        { id: 'met-2', title: 'Time to hemostatic products: Per protocol standard' },
+                        { id: 'met-3', title: 'Fibrinogen maintenance: Above critical threshold' },
+                        { id: 'met-4', title: 'Anesthesia response time: Per protocol standard' },
+                        { id: 'met-5', title: 'Protocol compliance rate: Target >90%' }
                     ]
                 },
                 {
@@ -543,7 +612,7 @@
                     title: 'V. Conclusion',
                     expanded: true,
                     children: [
-                        { id: 'con-1', title: 'Classic Swiss-cheese hemorrhage failure with recognizable physiology' },
+                        { id: 'con-1', title: 'Classic Swiss-cheese hemorrhage failure pattern with recognizable physiology' },
                         { id: 'con-2', title: 'Correctable coagulopathy with delayed protocolized response' },
                         { id: 'con-3', title: 'Structural staffing vulnerabilities identified' },
                         { id: 'con-4', title: 'Action plan is policy-ready using existing national standards' }
@@ -655,18 +724,18 @@
             renderOutline();
         }
 
-        // Data
+        // Data (DE-IDENTIFIED)
         const swissCheeseData = [
-            { layer: 1, barrier: "Clinical Recognition", failed: "PACU hemorrhage severity underestimated; DIC not recognized despite labs", impact: "Ongoing bleeding untreated", color: "#ef4444" },
-            { layer: 2, barrier: "Laboratory Monitoring", failed: "PACU labs not reviewed or acted upon by anesthesia team", impact: "Catastrophic hypofibrinogenemia untreated", color: "#f97316" },
-            { layer: 3, barrier: "Communication", failed: "Secure chat delayed; messages not acknowledged or internalized", impact: "Delayed mobilization of anesthesia response", color: "#eab308" },
-            { layer: 4, barrier: "Team Structure", failed: "Junior resident-heavy staffing; no OB-experienced resident", impact: "Poor hemorrhage leadership", color: "#84cc16" },
-            { layer: 5, barrier: "Hemorrhage Protocol", failed: "No standardized OB hemorrhage trigger or fibrinogen-first protocol", impact: "No early cryoprecipitate", color: "#22c55e" },
-            { layer: 6, barrier: "Backup Activation", failed: "No early backup call despite multiple red cases", impact: "Resource saturation", color: "#14b8a6" },
-            { layer: 7, barrier: "Situational Awareness", failed: "OB and anesthesia teams had divergent understanding of severity", impact: "Delayed definitive therapy", color: "#06b6d4" },
-            { layer: 8, barrier: "Informatics", failed: "PACU labs invisible to OR team", impact: "No automated warning", color: "#3b82f6" },
-            { layer: 9, barrier: "Resuscitation", failed: "Only RBC initially; FFP, cryo delayed", impact: "Worsened coagulopathy", color: "#8b5cf6" },
-            { layer: 10, barrier: "Leadership", failed: "No single resuscitation coordinator", impact: "Fragmented response", color: "#d946ef" }
+            { layer: 1, barrier: "Clinical Recognition", failed: "Post-procedural hemorrhage severity underestimated; coagulopathy not recognized despite laboratory findings", impact: "Ongoing bleeding untreated", color: "#ef4444" },
+            { layer: 2, barrier: "Laboratory Monitoring", failed: "Critical laboratory values not reviewed or acted upon by responding team", impact: "Severe coagulopathy untreated", color: "#f97316" },
+            { layer: 3, barrier: "Communication", failed: "Electronic messaging delays; messages not acknowledged or internalized", impact: "Delayed mobilization of response", color: "#eab308" },
+            { layer: 4, barrier: "Team Structure", failed: "Junior-heavy staffing pattern; limited OB-specific experience on team", impact: "Suboptimal hemorrhage leadership", color: "#84cc16" },
+            { layer: 5, barrier: "Hemorrhage Protocol", failed: "No standardized OB hemorrhage trigger or fibrinogen-first protocol", impact: "No early hemostatic therapy", color: "#22c55e" },
+            { layer: 6, barrier: "Backup Activation", failed: "No early backup call despite concurrent high-acuity cases", impact: "Resource limitations", color: "#14b8a6" },
+            { layer: 7, barrier: "Situational Awareness", failed: "Care teams had divergent understanding of clinical severity", impact: "Delayed definitive therapy", color: "#06b6d4" },
+            { layer: 8, barrier: "Informatics", failed: "Cross-location laboratory result visibility gaps", impact: "No automated warning to care team", color: "#3b82f6" },
+            { layer: 9, barrier: "Resuscitation", failed: "Initial RBC-only transfusion; plasma and hemostatic products delayed", impact: "Worsened coagulopathy", color: "#8b5cf6" },
+            { layer: 10, barrier: "Leadership", failed: "No designated resuscitation coordinator", impact: "Fragmented response", color: "#d946ef" }
         ];
 
         const fishboneCategories = [
@@ -676,10 +745,10 @@
                 icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>`,
                 color: "#3b82f6",
                 factors: [
-                    { factor: "Junior anesthesia staffing", evidence: "CA1/CA3 primary caregivers", impact: "Limited hemorrhage/DIC experience" },
-                    { factor: "No OB-trained resident", evidence: "PGY2 resident had no OB anesthesia experience", impact: "Poor procedural hemorrhage management" },
-                    { factor: "PACU resident unavailable", evidence: "Resident engaged in other red case", impact: "No anesthesia response in PACU" },
-                    { factor: "No hemorrhage leader", evidence: "No attending owning global resuscitation", impact: "No coordinated response" }
+                    { factor: "Junior-heavy anesthesia staffing", evidence: "Limited senior coverage during event", impact: "Limited hemorrhage/coagulopathy experience" },
+                    { factor: "Limited OB-specific experience", evidence: "Responding team had minimal OB anesthesia exposure", impact: "Suboptimal procedural hemorrhage management" },
+                    { factor: "Anesthesia team occupied", evidence: "Team engaged with concurrent emergencies", impact: "Delayed response to hemorrhage" },
+                    { factor: "No hemorrhage leader", evidence: "No attending designated for global resuscitation oversight", impact: "No coordinated response" }
                 ]
             },
             {
@@ -688,10 +757,10 @@
                 icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>`,
                 color: "#10b981",
                 factors: [
-                    { factor: "No OB hemorrhage protocol", evidence: "No defined escalation thresholds", impact: "Delayed MTP" },
-                    { factor: "No fibrinogen-based algorithm", evidence: "Cryo not ordered until intensivist arrived", impact: "Uncontrolled bleeding" },
-                    { factor: "No PACU hemorrhage pathway", evidence: "PACU relied on secure chat", impact: "Delayed anesthesia response" },
-                    { factor: "No intra-op labs in first D&E", evidence: "No trend of coagulopathy", impact: "Missed early DIC" }
+                    { factor: "No OB hemorrhage protocol", evidence: "No defined escalation thresholds", impact: "Delayed MTP activation" },
+                    { factor: "No fibrinogen-based algorithm", evidence: "Hemostatic products not ordered until late escalation", impact: "Uncontrolled bleeding" },
+                    { factor: "No recovery unit hemorrhage pathway", evidence: "Relied on ad-hoc communication", impact: "Delayed anesthesia response" },
+                    { factor: "No intra-operative coagulation monitoring", evidence: "No trending of coagulation status during index procedure", impact: "Missed early coagulopathy" }
                 ]
             },
             {
@@ -700,9 +769,9 @@
                 icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>`,
                 color: "#f59e0b",
                 factors: [
-                    { factor: "Secure chat delays", evidence: "OB team reports delayed receipt", impact: "Time lost" },
-                    { factor: "No closed-loop confirmation", evidence: "Messages interpreted as 'bleeding improving'", impact: "False reassurance" },
-                    { factor: "No shared mental model", evidence: "OB thought patient unstable; anesthesia thought stable", impact: "Treatment mismatch" }
+                    { factor: "Electronic messaging delays", evidence: "Receiving team reports prolonged message latency", impact: "Critical time lost" },
+                    { factor: "No closed-loop confirmation", evidence: "Messages misinterpreted regarding clinical status", impact: "False reassurance" },
+                    { factor: "No shared mental model", evidence: "Teams had divergent assessments of patient stability", impact: "Treatment approach mismatch" }
                 ]
             },
             {
@@ -711,9 +780,9 @@
                 icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>`,
                 color: "#8b5cf6",
                 factors: [
-                    { factor: "Difficult IV access", evidence: "Prolonged attempts", impact: "Delayed transfusion" },
-                    { factor: "No early A-line", evidence: "Placed only after intensivist arrival", impact: "Poor hemodynamic monitoring" },
-                    { factor: "Hypothermia untreated", evidence: "Not addressed early", impact: "Worsened coagulopathy" }
+                    { factor: "Difficult vascular access", evidence: "Prolonged IV placement attempts", impact: "Delayed transfusion initiation" },
+                    { factor: "Delayed invasive monitoring", evidence: "Arterial line placed late in resuscitation", impact: "Suboptimal hemodynamic assessment" },
+                    { factor: "Hypothermia not addressed", evidence: "Warming measures initiated late", impact: "Worsened coagulopathy" }
                 ]
             },
             {
@@ -722,8 +791,8 @@
                 icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>`,
                 color: "#ec4899",
                 factors: [
-                    { factor: "Multiple red cases", evidence: "Craniectomy, ex-lap, AAA, two OB cases", impact: "Resource depletion" },
-                    { factor: "No automatic backup trigger", evidence: "Backup not called", impact: "Delayed expertise" }
+                    { factor: "Multiple concurrent high-acuity cases", evidence: "Several simultaneous surgical emergencies", impact: "Resource depletion" },
+                    { factor: "No automatic backup trigger", evidence: "Backup not activated despite case load", impact: "Delayed expertise availability" }
                 ]
             },
             {
@@ -732,9 +801,9 @@
                 icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>`,
                 color: "#06b6d4",
                 factors: [
-                    { factor: "No critical lab alerting", evidence: "Fibrinogen 50 not flagged to anesthesia", impact: "Missed DIC" },
-                    { factor: "PACU labs not visible", evidence: "OR team unaware of labs", impact: "No cryo ordered" },
-                    { factor: "No TEG/ROTEM", evidence: "No real-time coagulation guidance", impact: "Empiric delay" }
+                    { factor: "No critical lab alerting", evidence: "Severely abnormal values not flagged to care team", impact: "Missed coagulopathy" },
+                    { factor: "Cross-location lab visibility gaps", evidence: "OR team unaware of recovery unit results", impact: "Hemostatic therapy not ordered" },
+                    { factor: "No point-of-care coagulation testing", evidence: "No real-time coagulation guidance available", impact: "Empiric therapy delays" }
                 ]
             },
             {
@@ -743,9 +812,9 @@
                 icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>`,
                 color: "#64748b",
                 factors: [
-                    { factor: "No OB hemorrhage bundle", evidence: "No standardized response", impact: "Practice variability" },
-                    { factor: "No PACU escalation policy", evidence: "No anesthesia auto-call", impact: "Delay in resuscitation" },
-                    { factor: "No MTP customization for OB", evidence: "No automatic cryo", impact: "Inadequate hemostatic therapy" }
+                    { factor: "No OB hemorrhage bundle", evidence: "No standardized institutional response", impact: "Practice variability" },
+                    { factor: "No recovery unit escalation policy", evidence: "No automatic anesthesia notification", impact: "Delayed resuscitation" },
+                    { factor: "No OB-specific MTP customization", evidence: "No automatic hemostatic products in protocol", impact: "Inadequate early hemostatic therapy" }
                 ]
             }
         ];
@@ -768,7 +837,7 @@
                         </div>
                         <div class="flex items-center gap-3 py-2">
                             <svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                            <div class="flex-1"><span class="text-slate-700">Appoint PACU Hemorrhage Lead RN</span><span class="text-slate-400 mx-2">•</span><span class="text-sm text-slate-500">PACU Leadership</span></div>
+                            <div class="flex-1"><span class="text-slate-700">Appoint Recovery Unit Hemorrhage Lead RN</span><span class="text-slate-400 mx-2">•</span><span class="text-sm text-slate-500">Recovery Unit Leadership</span></div>
                         </div>
                     </div>
                 `
@@ -785,7 +854,7 @@
                         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
                             <div class="flex items-center gap-2 p-2 bg-red-50 rounded-lg">
                                 <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                                <span class="text-sm text-slate-700">EBL >1000 mL with ongoing bleeding</span>
+                                <span class="text-sm text-slate-700">Significant blood loss with ongoing bleeding</span>
                             </div>
                             <div class="flex items-center gap-2 p-2 bg-red-50 rounded-lg">
                                 <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
@@ -793,15 +862,15 @@
                             </div>
                             <div class="flex items-center gap-2 p-2 bg-red-50 rounded-lg">
                                 <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                                <span class="text-sm text-slate-700">Fibrinogen <200 mg/dL</span>
+                                <span class="text-sm text-slate-700">Severely low fibrinogen</span>
                             </div>
                             <div class="flex items-center gap-2 p-2 bg-red-50 rounded-lg">
                                 <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                                <span class="text-sm text-slate-700">Platelets <100k</span>
+                                <span class="text-sm text-slate-700">Thrombocytopenia</span>
                             </div>
                             <div class="flex items-center gap-2 p-2 bg-red-50 rounded-lg">
                                 <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                                <span class="text-sm text-slate-700">INR >1.5</span>
+                                <span class="text-sm text-slate-700">Marked coagulopathy</span>
                             </div>
                             <div class="flex items-center gap-2 p-2 bg-red-50 rounded-lg">
                                 <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
@@ -830,11 +899,11 @@
                             </div>
                             <div class="flex items-center gap-2 p-2 bg-green-50 rounded-lg">
                                 <svg class="w-4 h-4 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                <span class="text-sm text-slate-700">Draw labs: CBC, PT/INR, aPTT, fibrinogen, TEG/ROTEM</span>
+                                <span class="text-sm text-slate-700">Draw coagulation labs and point-of-care testing</span>
                             </div>
                             <div class="flex items-center gap-2 p-2 bg-green-50 rounded-lg">
                                 <svg class="w-4 h-4 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                <span class="text-sm text-slate-700">Start warming</span>
+                                <span class="text-sm text-slate-700">Start active warming</span>
                             </div>
                         </div>
                     </div>
@@ -853,33 +922,33 @@
                             <div class="space-y-2">
                                 <div class="flex items-center gap-2 p-2 rounded-lg" style="background-color: rgba(239, 68, 68, 0.1)">
                                     <div class="w-3 h-3 rounded-full" style="background-color: #ef4444"></div>
-                                    <span class="font-medium text-slate-700">4 RBC</span>
+                                    <span class="font-medium text-slate-700">Red Blood Cells (balanced ratio)</span>
                                 </div>
                                 <div class="flex items-center gap-2 p-2 rounded-lg" style="background-color: rgba(245, 158, 11, 0.1)">
                                     <div class="w-3 h-3 rounded-full" style="background-color: #f59e0b"></div>
-                                    <span class="font-medium text-slate-700">4 FFP</span>
+                                    <span class="font-medium text-slate-700">Fresh Frozen Plasma (balanced ratio)</span>
                                 </div>
                                 <div class="flex items-center gap-2 p-2 rounded-lg" style="background-color: rgba(59, 130, 246, 0.1)">
                                     <div class="w-3 h-3 rounded-full" style="background-color: #3b82f6"></div>
-                                    <span class="font-medium text-slate-700">1 Apheresis Platelet</span>
+                                    <span class="font-medium text-slate-700">Platelets</span>
                                 </div>
                                 <div class="flex items-center gap-2 p-2 rounded-lg" style="background-color: rgba(139, 92, 246, 0.1)">
                                     <div class="w-3 h-3 rounded-full" style="background-color: #8b5cf6"></div>
-                                    <span class="font-medium text-slate-700">2 Pools Cryoprecipitate</span>
+                                    <span class="font-medium text-slate-700">Cryoprecipitate</span>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <h4 class="font-semibold text-slate-700 mb-3">Automatic Add-Ons:</h4>
+                            <h4 class="font-semibold text-slate-700 mb-3">Fibrinogen-Based Escalation:</h4>
                             <div class="space-y-2 text-sm">
                                 <div class="p-2 bg-slate-50 rounded-lg">
-                                    <strong>Fibrinogen &lt;200:</strong> Cryo ×2 pools
+                                    <strong>Moderately low fibrinogen:</strong> Additional cryoprecipitate
                                 </div>
                                 <div class="p-2 bg-slate-50 rounded-lg">
-                                    <strong>Fibrinogen &lt;100:</strong> Cryo ×4 pools or fibrinogen concentrate
+                                    <strong>Severely low fibrinogen:</strong> Increased cryoprecipitate or fibrinogen concentrate
                                 </div>
                                 <div class="p-2 bg-slate-50 rounded-lg">
-                                    <strong>Ongoing bleeding:</strong> Repeat pack
+                                    <strong>Ongoing bleeding:</strong> Repeat product pack
                                 </div>
                             </div>
                         </div>
@@ -887,15 +956,15 @@
                     <div class="mt-4 pt-4 border-t">
                         <h4 class="font-semibold text-slate-700 mb-2">Medication Defaults:</h4>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">TXA 1g IV (unless active thrombosis) <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(17)30638-4/fulltext" target="_blank" class="underline ml-1">WOMAN Trial</a></span>
-                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">Calcium chloride 1g IV q4u products</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">TXA per protocol (unless contraindicated) <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(17)30638-4/fulltext" target="_blank" class="underline ml-1">WOMAN Trial</a></span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">Calcium replacement per transfusion volume</span>
                         </div>
                     </div>
                 `
             },
             {
                 id: 'pacu',
-                title: 'PACU Hemorrhage Escalation Policy',
+                title: 'Recovery Unit Hemorrhage Escalation Policy',
                 color: '#ec4899',
                 content: `
                     <div class="overflow-x-auto">
@@ -908,19 +977,19 @@
                             </thead>
                             <tbody>
                                 <tr class="border-b hover:bg-slate-50">
-                                    <td class="p-2">Vaginal bleeding &gt;250 mL/hr</td>
+                                    <td class="p-2">Bleeding rate exceeds threshold</td>
                                     <td class="p-2 font-medium text-blue-600">Call OB + Anesthesia</td>
                                 </tr>
                                 <tr class="border-b hover:bg-slate-50">
-                                    <td class="p-2">&gt;500 mL in PACU</td>
-                                    <td class="p-2 font-medium text-orange-600">Activate OB hemorrhage</td>
+                                    <td class="p-2">Cumulative blood loss exceeds threshold</td>
+                                    <td class="p-2 font-medium text-orange-600">Activate OB hemorrhage protocol</td>
                                 </tr>
                                 <tr class="border-b hover:bg-slate-50">
-                                    <td class="p-2">Any coags abnormal</td>
+                                    <td class="p-2">Any coagulation abnormality</td>
                                     <td class="p-2 font-medium text-purple-600">Immediate anesthesia evaluation</td>
                                 </tr>
                                 <tr class="hover:bg-slate-50">
-                                    <td class="p-2">Fibrinogen &lt;200</td>
+                                    <td class="p-2">Severely low fibrinogen</td>
                                     <td class="p-2 font-medium text-red-600">Activate OB-MTP</td>
                                 </tr>
                             </tbody>
@@ -928,7 +997,7 @@
                     </div>
                     <div class="mt-4 p-3 bg-amber-50 rounded-lg border border-amber-200">
                         <p class="text-amber-800 text-sm font-medium">
-                            ⚡ PACU RN Authority: May activate hemorrhage protocol without physician approval
+                            ⚡ RN Authority: May activate hemorrhage protocol without physician approval
                         </p>
                     </div>
                 `
@@ -942,7 +1011,7 @@
                         <div class="flex items-start gap-3 p-3 bg-cyan-50 rounded-lg">
                             <div class="w-2 h-2 rounded-full bg-cyan-500 mt-2"></div>
                             <div>
-                                <p class="font-medium text-slate-800">&gt;2 red cases active</p>
+                                <p class="font-medium text-slate-800">Multiple concurrent high-acuity cases</p>
                                 <p class="text-sm text-slate-600">→ Call backup anesthesiologist</p>
                             </div>
                         </div>
@@ -956,8 +1025,8 @@
                         <div class="flex items-start gap-3 p-3 bg-cyan-50 rounded-lg">
                             <div class="w-2 h-2 rounded-full bg-cyan-500 mt-2"></div>
                             <div>
-                                <p class="font-medium text-slate-800">PACU hemorrhage</p>
-                                <p class="text-sm text-slate-600">→ Anesthesia present within 10 min</p>
+                                <p class="font-medium text-slate-800">Recovery unit hemorrhage</p>
+                                <p class="text-sm text-slate-600">→ Anesthesia response within protocol time standard</p>
                             </div>
                         </div>
                     </div>
@@ -965,33 +1034,33 @@
             },
             {
                 id: 'info',
-                title: 'Informatics Enhancements (Epic/OpTime)',
+                title: 'Informatics Enhancements',
                 color: '#64748b',
                 content: `
                     <div class="grid md:grid-cols-3 gap-4">
                         <div class="p-4 bg-slate-50 rounded-xl">
                             <h4 class="font-semibold text-slate-700 mb-2">Critical Value Alerts</h4>
                             <ul class="space-y-1 text-sm text-slate-600">
-                                <li>• Fibrinogen &lt;150</li>
-                                <li>• INR &gt;1.5</li>
-                                <li>• Platelets &lt;100k</li>
+                                <li>• Low fibrinogen threshold</li>
+                                <li>• Elevated INR threshold</li>
+                                <li>• Low platelet threshold</li>
                             </ul>
                             <p class="mt-2 text-xs text-blue-600">→ Auto-alert to anesthesia + OR board</p>
                         </div>
                         <div class="p-4 bg-slate-50 rounded-xl">
                             <h4 class="font-semibold text-slate-700 mb-2">OB Hemorrhage Order Set</h4>
                             <ul class="space-y-1 text-sm text-slate-600">
-                                <li>• Labs</li>
-                                <li>• MTP</li>
-                                <li>• Cryoprecipitate</li>
+                                <li>• Coagulation labs</li>
+                                <li>• MTP activation</li>
+                                <li>• Hemostatic products</li>
                                 <li>• TXA & Calcium</li>
-                                <li>• Warming</li>
+                                <li>• Warming devices</li>
                             </ul>
                         </div>
                         <div class="p-4 bg-slate-50 rounded-xl">
-                            <h4 class="font-semibold text-slate-700 mb-2">TEG/ROTEM Integration</h4>
+                            <h4 class="font-semibold text-slate-700 mb-2">Point-of-Care Integration</h4>
                             <p class="text-sm text-slate-600">
-                                Results visible in OpTime + PACU flowsheet
+                                Coagulation results visible across all care locations in real-time
                             </p>
                         </div>
                     </div>
@@ -1006,19 +1075,19 @@
                         <div class="text-center p-4 bg-amber-50 rounded-xl">
                             <p class="text-3xl mb-2">🏥</p>
                             <h4 class="font-semibold text-slate-700">OB Hemorrhage Simulation</h4>
-                            <p class="text-sm text-slate-500 mt-1">OB + Anesthesia + PACU</p>
+                            <p class="text-sm text-slate-500 mt-1">Multidisciplinary teams</p>
                             <span class="inline-block mt-2 px-2 py-1 bg-amber-200 text-amber-800 rounded text-xs font-medium">Semiannual</span>
                         </div>
                         <div class="text-center p-4 bg-amber-50 rounded-xl">
                             <p class="text-3xl mb-2">📚</p>
-                            <h4 class="font-semibold text-slate-700">DIC Recognition Module</h4>
-                            <p class="text-sm text-slate-500 mt-1">Anesthesia residents</p>
+                            <h4 class="font-semibold text-slate-700">Coagulopathy Recognition</h4>
+                            <p class="text-sm text-slate-500 mt-1">Anesthesia & OB providers</p>
                             <span class="inline-block mt-2 px-2 py-1 bg-amber-200 text-amber-800 rounded text-xs font-medium">Annual</span>
                         </div>
                         <div class="text-center p-4 bg-amber-50 rounded-xl">
                             <p class="text-3xl mb-2">💬</p>
                             <h4 class="font-semibold text-slate-700">Closed-Loop Comm Training</h4>
-                            <p class="text-sm text-slate-500 mt-1">All staff</p>
+                            <p class="text-sm text-slate-500 mt-1">All clinical staff</p>
                             <span class="inline-block mt-2 px-2 py-1 bg-amber-200 text-amber-800 rounded text-xs font-medium">Annual</span>
                         </div>
                     </div>
@@ -1050,11 +1119,11 @@
         ];
 
         const metrics = [
-            { name: "Time to MTP activation", target: "<10 min", icon: "clock" },
-            { name: "Time to cryo", target: "<15 min", icon: "clock" },
-            { name: "Fibrinogen nadir", target: ">150 mg/dL", icon: "activity" },
-            { name: "Time to anesthesia at PACU hemorrhage", target: "<10 min", icon: "clock" },
-            { name: "% OB hemorrhages using protocol", target: ">90%", icon: "target" }
+            { name: "Time to MTP activation", target: "Per protocol", icon: "clock" },
+            { name: "Time to hemostatic products", target: "Per protocol", icon: "clock" },
+            { name: "Fibrinogen maintenance", target: "Above threshold", icon: "activity" },
+            { name: "Anesthesia response time", target: "Per protocol", icon: "clock" },
+            { name: "Protocol compliance rate", target: ">90%", icon: "target" }
         ];
 
         // State
