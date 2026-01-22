@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Postpartum Hemorrhage Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blood-red: #C41E3A;
+      --blood-dark: #8B0000;
+      --alert-orange: #E65100;
+      --warning-yellow: #F9A825;
+      --safe-green: #2E7D32;
+      --clinical-blue: #1565C0;
+      --bg-cream: #FDF8F3;
+      --text-dark: #1A1A1A;
+      --text-muted: #5A5A5A;
+      --card-white: #FFFFFF;
+      --border-light: #E8E0D8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-cream);
+      color: var(--text-dark);
+      line-height: 1.5;
+    }
+
+    .infographic {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+      position: relative;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--blood-red);
+      border-radius: 2px;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--blood-dark);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .header .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .definition-bar {
+      background: linear-gradient(135deg, var(--blood-red), var(--blood-dark));
+      color: white;
+      padding: 20px 32px;
+      border-radius: 12px;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      box-shadow: 0 4px 20px rgba(196, 30, 58, 0.3);
+    }
+
+    .definition-item {
+      text-align: center;
+    }
+
+    .definition-item .value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .definition-item .label {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    /* Section Grid */
+    .main-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    /* 4 T's Cards */
+    .t-card {
+      background: var(--card-white);
+      border-radius: 16px;
+      padding: 24px;
+      border: 2px solid var(--border-light);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .t-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    .t-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    .t-card.tone::before { background: var(--blood-red); }
+    .t-card.trauma::before { background: var(--alert-orange); }
+    .t-card.tissue::before { background: var(--warning-yellow); }
+    .t-card.thrombin::before { background: var(--clinical-blue); }
+
+    .t-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .t-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .tone .t-icon { background: rgba(196, 30, 58, 0.1); }
+    .trauma .t-icon { background: rgba(230, 81, 0, 0.1); }
+    .tissue .t-icon { background: rgba(249, 168, 37, 0.1); }
+    .thrombin .t-icon { background: rgba(21, 101, 192, 0.1); }
+
+    .t-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .tone .t-title { color: var(--blood-red); }
+    .trauma .t-title { color: var(--alert-orange); }
+    .tissue .t-title { color: var(--warning-yellow); }
+    .thrombin .t-title { color: var(--clinical-blue); }
+
+    .t-percent {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .t-cause {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    .t-list {
+      list-style: none;
+    }
+
+    .t-list li {
+      font-size: 0.85rem;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .t-list li:last-child {
+      border-bottom: none;
+    }
+
+    .t-list li::before {
+      content: '→';
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    /* Management Section */
+    .management-section {
+      background: var(--card-white);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 32px;
+      border: 2px solid var(--border-light);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--blood-dark);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 28px;
+      background: var(--blood-red);
+      border-radius: 2px;
+    }
+
+    .step-flow {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .step {
+      flex: 1;
+      min-width: 200px;
+      background: linear-gradient(180deg, #F8F4F0 0%, #FFFFFF 100%);
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+      border: 1px solid var(--border-light);
+    }
+
+    .step::after {
+      content: '▶';
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--blood-red);
+      font-size: 0.8rem;
+      z-index: 1;
+    }
+
+    .step:last-child::after {
+      display: none;
+    }
+
+    .step-number {
+      width: 28px;
+      height: 28px;
+      background: var(--blood-red);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+
+    .step-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+
+    .step-content {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Medications Grid */
+    .meds-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .med-category {
+      background: var(--card-white);
+      border-radius: 16px;
+      padding: 24px;
+      border: 2px solid var(--border-light);
+    }
+
+    .med-category-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--blood-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .med-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .med-item:last-child {
+      border-bottom: none;
+    }
+
+    .med-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .med-dose {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--clinical-blue);
+      text-align: right;
+    }
+
+    .med-route {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Risk Factors */
+    .risk-section {
+      background: linear-gradient(135deg, #FFF8E1 0%, #FFFFFF 100%);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 32px;
+      border: 2px solid var(--warning-yellow);
+    }
+
+    .risk-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--alert-orange);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .risk-column h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--warning-yellow);
+    }
+
+    .risk-column ul {
+      list-style: none;
+    }
+
+    .risk-column li {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      padding: 4px 0;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 2px solid var(--border-light);
+    }
+
+    .footer-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .footer-alert {
+      background: var(--blood-red);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .disclaimer {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 16px;
+      font-style: italic;
+    }
+
+    /* References Section */
+    .references-section {
+      background: var(--card-white);
+      border-radius: 16px;
+      padding: 28px;
+      margin-top: 32px;
+      border: 2px solid var(--border-light);
+    }
+
+    .references-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--blood-dark);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .references-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-bottom: 24px;
+    }
+
+    .ref-column h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--clinical-blue);
+    }
+
+    .ref-list {
+      list-style-position: outside;
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .ref-list li {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .ref-list em {
+      color: var(--text-dark);
+    }
+
+    .ref-org {
+      font-weight: 600;
+      color: var(--clinical-blue);
+    }
+
+    .evidence-levels {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .evidence-badge {
+      flex: 1;
+      min-width: 280px;
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .evidence-badge strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .level-a {
+      background: rgba(46, 125, 50, 0.1);
+      border: 1px solid var(--safe-green);
+      color: var(--safe-green);
+    }
+
+    .level-a strong {
+      color: var(--safe-green);
+    }
+
+    .level-b {
+      background: rgba(21, 101, 192, 0.1);
+      border: 1px solid var(--clinical-blue);
+      color: var(--clinical-blue);
+    }
+
+    .level-b strong {
+      color: var(--clinical-blue);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .main-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .risk-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+      .meds-grid {
+        grid-template-columns: 1fr;
+      }
+      .risk-grid {
+        grid-template-columns: 1fr;
+      }
+      .references-grid {
+        grid-template-columns: 1fr;
+      }
+      .definition-bar {
+        gap: 24px;
+      }
+      .header h1 {
+        font-size: 1.8rem;
+      }
+      .evidence-levels {
+        flex-direction: column;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+      .infographic {
+        padding: 20px;
+      }
+      .t-card:hover {
+        transform: none;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="infographic">
+    <header class="header">
+      <h1>Postpartum Hemorrhage</h1>
+      <p class="subtitle">Rapid Assessment & Management Guide</p>
+    </header>
+
+    <div class="definition-bar">
+      <div class="definition-item">
+        <div class="value">&gt;500 mL</div>
+        <div class="label">Vaginal Delivery</div>
+      </div>
+      <div class="definition-item">
+        <div class="value">&gt;1000 mL</div>
+        <div class="label">Cesarean Delivery</div>
+      </div>
+      <div class="definition-item">
+        <div class="value">&gt;1000 mL</div>
+        <div class="label">ACOG Definition (any)</div>
+      </div>
+      <div class="definition-item">
+        <div class="value">1-5%</div>
+        <div class="label">Incidence</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">The 4 T's — Etiology</h2>
+    <div class="main-grid">
+      <div class="t-card tone">
+        <div class="t-header">
+          <div class="t-icon">💪</div>
+          <div>
+            <div class="t-title">Tone</div>
+            <div class="t-percent">70-80% of cases</div>
+          </div>
+        </div>
+        <p class="t-cause">Uterine Atony</p>
+        <ul class="t-list">
+          <li>Overdistended uterus</li>
+          <li>Prolonged labor</li>
+          <li>Multiparity</li>
+          <li>Tocolytic use</li>
+          <li>General anesthesia</li>
+          <li>Chorioamnionitis</li>
+        </ul>
+      </div>
+
+      <div class="t-card trauma">
+        <div class="t-header">
+          <div class="t-icon">⚡</div>
+          <div>
+            <div class="t-title">Trauma</div>
+            <div class="t-percent">10-20% of cases</div>
+          </div>
+        </div>
+        <p class="t-cause">Genital Tract Injury</p>
+        <ul class="t-list">
+          <li>Lacerations (cervix, vagina, perineum)</li>
+          <li>Uterine rupture</li>
+          <li>Uterine inversion</li>
+          <li>Operative delivery</li>
+          <li>Episiotomy extension</li>
+        </ul>
+      </div>
+
+      <div class="t-card tissue">
+        <div class="t-header">
+          <div class="t-icon">🧬</div>
+          <div>
+            <div class="t-title">Tissue</div>
+            <div class="t-percent">5-10% of cases</div>
+          </div>
+        </div>
+        <p class="t-cause">Retained Products</p>
+        <ul class="t-list">
+          <li>Retained placenta</li>
+          <li>Placenta accreta spectrum</li>
+          <li>Retained membranes</li>
+          <li>Succenturiate lobe</li>
+          <li>Abnormal placentation</li>
+        </ul>
+      </div>
+
+      <div class="t-card thrombin">
+        <div class="t-header">
+          <div class="t-icon">🩸</div>
+          <div>
+            <div class="t-title">Thrombin</div>
+            <div class="t-percent">1-2% of cases</div>
+          </div>
+        </div>
+        <p class="t-cause">Coagulation Disorders</p>
+        <ul class="t-list">
+          <li>DIC</li>
+          <li>Pre-existing coagulopathy</li>
+          <li>Anticoagulant therapy</li>
+          <li>HELLP syndrome</li>
+          <li>AFE / Sepsis</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="management-section">
+      <h2 class="section-title">Stepwise Management</h2>
+      <div class="step-flow">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-title">Call for Help</div>
+          <div class="step-content">Activate MTP protocol<br>Notify anesthesia, OB, blood bank<br>Establish 2 large-bore IVs</div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-title">Resuscitate</div>
+          <div class="step-content">Crystalloid/colloid infusion<br>Type & crossmatch<br>Labs: CBC, coags, fibrinogen</div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-title">Identify Cause</div>
+          <div class="step-content">Fundal massage<br>Inspect for lacerations<br>Check for retained tissue</div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-title">Uterotonics</div>
+          <div class="step-content">Oxytocin first-line<br>Add second-line agents<br>Consider TXA within 3 hrs</div>
+        </div>
+        <div class="step">
+          <div class="step-number">5</div>
+          <div class="step-title">Tamponade</div>
+          <div class="step-content">Bakri balloon<br>Uterine packing<br>Bimanual compression</div>
+        </div>
+        <div class="step">
+          <div class="step-number">6</div>
+          <div class="step-title">Surgery</div>
+          <div class="step-content">B-Lynch suture<br>Uterine artery ligation<br>Hysterectomy (last resort)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meds-grid">
+      <div class="med-category">
+        <h3 class="med-category-title">💊 Uterotonics</h3>
+        <div class="med-item">
+          <div>
+            <div class="med-name">Oxytocin (Pitocin)</div>
+            <div class="med-route">First-line agent</div>
+          </div>
+          <div class="med-dose">10-40 units/L IV<br>or 10 units IM</div>
+        </div>
+        <div class="med-item">
+          <div>
+            <div class="med-name">Methylergonovine (Methergine)</div>
+            <div class="med-route">⚠️ Avoid in HTN</div>
+          </div>
+          <div class="med-dose">0.2 mg IM<br>q2-4h PRN</div>
+        </div>
+        <div class="med-item">
+          <div>
+            <div class="med-name">Carboprost (Hemabate)</div>
+            <div class="med-route">⚠️ Avoid in asthma</div>
+          </div>
+          <div class="med-dose">250 mcg IM<br>q15-90 min (max 8)</div>
+        </div>
+        <div class="med-item">
+          <div>
+            <div class="med-name">Misoprostol (Cytotec)</div>
+            <div class="med-route">SL/PR/Buccal</div>
+          </div>
+          <div class="med-dose">600-1000 mcg<br>PR or SL</div>
+        </div>
+      </div>
+
+      <div class="med-category">
+        <h3 class="med-category-title">🩸 Blood Products & Adjuncts</h3>
+        <div class="med-item">
+          <div>
+            <div class="med-name">Tranexamic Acid (TXA)</div>
+            <div class="med-route">Within 3 hours of delivery</div>
+          </div>
+          <div class="med-dose">1 g IV over 10 min<br>+1 g if ongoing</div>
+        </div>
+        <div class="med-item">
+          <div>
+            <div class="med-name">Massive Transfusion Protocol</div>
+            <div class="med-route">pRBC : FFP : Platelets</div>
+          </div>
+          <div class="med-dose">1:1:1 ratio<br>or institution protocol</div>
+        </div>
+        <div class="med-item">
+          <div>
+            <div class="med-name">Cryoprecipitate</div>
+            <div class="med-route">If fibrinogen &lt;200 mg/dL</div>
+          </div>
+          <div class="med-dose">10 units</div>
+        </div>
+        <div class="med-item">
+          <div>
+            <div class="med-name">Calcium Gluconate</div>
+            <div class="med-route">After ≥4 units pRBC</div>
+          </div>
+          <div class="med-dose">1 g IV</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="risk-section">
+      <h3 class="risk-title">⚠️ Risk Factors to Identify Antenatally</h3>
+      <div class="risk-grid">
+        <div class="risk-column">
+          <h4>Prior History</h4>
+          <ul>
+            <li>Previous PPH</li>
+            <li>Prior cesarean delivery</li>
+            <li>Uterine surgery</li>
+            <li>Grand multiparity</li>
+          </ul>
+        </div>
+        <div class="risk-column">
+          <h4>Current Pregnancy</h4>
+          <ul>
+            <li>Multiple gestation</li>
+            <li>Polyhydramnios</li>
+            <li>Macrosomia</li>
+            <li>Placenta previa/accreta</li>
+          </ul>
+        </div>
+        <div class="risk-column">
+          <h4>Labor Factors</h4>
+          <ul>
+            <li>Prolonged labor</li>
+            <li>Precipitous labor</li>
+            <li>Augmented labor</li>
+            <li>Operative vaginal delivery</li>
+          </ul>
+        </div>
+        <div class="risk-column">
+          <h4>Patient Factors</h4>
+          <ul>
+            <li>Anemia (Hgb &lt;10)</li>
+            <li>Bleeding disorders</li>
+            <li>Preeclampsia/HELLP</li>
+            <li>Chorioamnionitis</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="references-section">
+      <h3 class="references-title">📚 References & Guidelines</h3>
+      <div class="references-grid">
+        <div class="ref-column">
+          <h4>Practice Guidelines</h4>
+          <ol class="ref-list">
+            <li><span class="ref-org">ACOG</span> Practice Bulletin No. 183: Postpartum Hemorrhage. <em>Obstet Gynecol.</em> 2017;130(4):e168-e186. Reaffirmed 2023.</li>
+            <li><span class="ref-org">WHO</span> WHO recommendations for the prevention and treatment of postpartum haemorrhage. Geneva: World Health Organization; 2012. Updated 2023.</li>
+            <li><span class="ref-org">AWHONN</span> Postpartum Hemorrhage Project. Association of Women's Health, Obstetric and Neonatal Nurses. 2015.</li>
+            <li><span class="ref-org">California Maternal Quality Care Collaborative</span> OB Hemorrhage Toolkit V3.0. 2022.</li>
+          </ol>
+        </div>
+        <div class="ref-column">
+          <h4>Key Evidence</h4>
+          <ol class="ref-list" start="5">
+            <li><span class="ref-org">WOMAN Trial</span> Shakur H, et al. Effect of early tranexamic acid administration on mortality, hysterectomy, and other morbidities in women with post-partum haemorrhage (WOMAN): an international, randomised, double-blind, placebo-controlled trial. <em>Lancet.</em> 2017;389(10084):2105-2116.</li>
+            <li><span class="ref-org">Cochrane</span> Gallos ID, et al. Uterotonic agents for preventing postpartum haemorrhage: a network meta-analysis. <em>Cochrane Database Syst Rev.</em> 2018;12:CD011689.</li>
+            <li><span class="ref-org">AABB</span> Pham HP, Shaz BH. Update on massive transfusion. <em>Br J Anaesth.</em> 2013;111(Suppl 1):i71-i82.</li>
+            <li><span class="ref-org">SMFM</span> Society for Maternal-Fetal Medicine Consult Series #47: Placenta accreta spectrum. <em>Am J Obstet Gynecol.</em> 2018;219(6):B2-B16.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="evidence-levels">
+        <div class="evidence-badge level-a">
+          <strong>Level A Evidence:</strong> TXA within 3 hours • Oxytocin first-line • Active management of third stage • Quantitative blood loss
+        </div>
+        <div class="evidence-badge level-b">
+          <strong>Level B Evidence:</strong> 1:1:1 transfusion ratio • Intrauterine balloon tamponade • Uterine compression sutures
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p class="footer-note">Quantitative blood loss measurement recommended • Consider cell salvage • Early consultation improves outcomes</p>
+      <div class="footer-alert">🚨 PPH is a time-critical emergency — Every minute counts</div>
+      <p class="disclaimer">For educational purposes only. Always follow institutional protocols and clinical judgment.</p>
+    </footer>
+  </div>
+</body>
+</html>
